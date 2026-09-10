@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import VideoPlayer from '../../components/VideoPlayer.astro';
+import BibtexBlock from '../../components/BibtexBlock.astro';
+import projectsData from '../../data/projects.json';
+import { url } from '../../utils/url';
+
+export async function getStaticPaths() {
+  return projectsData.map(project => ({
+    params: { slug: project.slug },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+
+const hasDoiOrPaper = Boolean(project.doi || project.publicationUrl);
+const paperLink = project.doi || project.publicationUrl;
+
+const cleanDoi = project.doi ? project.doi.replace(/^https?:\/\/doi\.org\//, '') : undefined;
+const resolvedPublicationUrl = project.publicationUrl || (project.doi ? (project.doi.startsWith('http') ? project.doi : `https://doi.org/${project.doi}`) : undefined);
+
+const academicCitation = {
+  title: project.title,
+  authors: project.authors,
+  date: project.date,
+  doi: cleanDoi,
+  pdfUrl: project.publicationUrl && project.publicationUrl.toLowerCase().endsWith('.pdf') ? project.publicationUrl : undefined,
+  publicationUrl: resolvedPublicationUrl,
+};
+
+const projectCanonicalUrl = `https://upnalab.com/project/${project.slug}/`;
+const ogImageUrl = project.thumbnail
+  ? (project.thumbnail.startsWith('http') ? project.thumbnail : `https://upnalab.com${project.thumbnail}`)
+  : undefined;
+
+const scholarlyArticleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": project.title,
+  "name": project.title,
+  "description": project.abstract || project.title,
+  ...(project.date ? { "datePublished": project.date } : {}),
+  ...(ogImageUrl ? { "image": ogImageUrl } : {}),
+  "url": projectCanonicalUrl,
+  "mainEntityOfPage": projectCanonicalUrl,
+  ...(project.authors && project.authors.length > 0 ? {
+    "author": project.authors.map(author => ({
+      "@type": "Person",
+      "name": author
+    }))
+  } : {}),
+  "publisher": {
+    "@id": "https://upnalab.com/#organization"
+  },
+  ...(project.doi ? {
+    "sameAs": project.doi.startsWith('http') ? project.doi : `https://doi.org/${project.doi}`
+  } : (project.publicationUrl ? { "sameAs": project.publicationUrl } : {})),
+  ...(project.tags && project.tags.length > 0 ? { "keywords": project.tags.join(', ') } : {})
+};
+
+const parentCategoryName = project.category === 'Student Project' ? 'Student Projects' : 'Research Projects';
+const parentCategoryUrl = project.category === 'Student Project' ? 'https://upnalab.com/student-projects' : 'https://upnalab.com';
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://upnalab.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": parentCategoryName,
+      "item": parentCategoryUrl
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": project.title,
+      "item": projectCanonicalUrl
+    }
+  ]
+};
+
+const projectJsonLd = [scholarlyArticleJsonLd, breadcrumbJsonLd];
+---
+
+<BaseLayout
+  title={`${project.title} · UPNALAB`}
+  description={project.abstract ? project.abstract.slice(0, 160) + '...' : project.title}
+  image={project.thumbnail}
+  article={true}
+  citation={academicCitation}
+  jsonLd={projectJsonLd}
+  keywords={project.tags && project.tags.length > 0 ? project.tags.join(', ') : undefined}
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+    
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-6" aria-label="Breadcrumb">
+      <a href={url('/')} class="hover:text-slate-900 transition-colors">Home</a>
+      <span>/</span>
+      {project.category === 'Student Project' ? (
+        <a href={url('/student-projects')} class="hover:text-slate-900 transition-colors">Student Projects</a>
+      ) : (
+        <a href={url('/')} class="hover:text-slate-900 transition-colors">Research Projects</a>
+      )}
+      <span>/</span>
+      <span class="text-slate-900 truncate max-w-[200px] sm:max-w-md">{project.title}</span>
+    </nav>
+
+    <!-- Header & Metadata -->
+    <header class="mb-8">
+      <!-- Tags pills -->
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 border border-brand-200">
+          {project.category}
+        </span>
+        {project.tags.map(tag => (
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
+            {tag}
+          </span>
+        ))}
+        <span class="text-xs text-slate-400 ml-auto">
+          {project.date}
+        </span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        {project.title}
+      </h1>
+
+      <!-- Authors list -->
+      {project.authors && project.authors.length > 0 && (
+        <div class="mt-4 pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-y-1 gap-x-2 text-sm text-slate-700 font-medium">
+          <span class="text-slate-400 font-normal">Authors:</span>
+          {project.authors.map((author, idx) => (
+            <span>
+              <span class="text-slate-900">{author}</span>
+              {idx < project.authors.length - 1 && <span class="text-slate-300">·</span>}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Main Project Media (Paper Video or Hero Player) -->
+    <div class="mb-10">
+      <VideoPlayer
+        videoUrl={project.paperVideo || project.videoPreview || undefined}
+        poster={url(project.thumbnail)}
+        title={project.title}
+      />
+    </div>
+
+    <!-- Paper Link Call-to-Action Button -->
+    {(hasDoiOrPaper || project.instructablesUrl) && (
+      <div class="mb-10 p-5 rounded-2xl bg-brand-50/70 border border-brand-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-center sm:text-left">
+          <h3 class="text-sm font-bold text-brand-900">
+            {hasDoiOrPaper ? 'Peer-Reviewed Academic Publication' : 'Open Hardware Guide'}
+          </h3>
+          <p class="text-xs text-brand-700 mt-0.5">
+            {hasDoiOrPaper ? 'Read the full paper, experimental results and appendices.' : 'Explore step-by-step schematics and instructions.'}
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          {project.instructablesUrl && (
+            <a
+              href={project.instructablesUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium text-sm shadow-sm transition-colors whitespace-nowrap"
+            >
+              <span>Build on Instructables</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          )}
+          {hasDoiOrPaper && (
+            <a
+              href={paperLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm shadow-sm transition-colors whitespace-nowrap"
+            >
+              <span>Read Full Paper</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+    )}
+
+    <!-- Abstract Section -->
+    {project.abstract && (
+      <section class="mb-12">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-4">
+          Abstract
+        </h2>
+        <div class="prose prose-slate max-w-none text-base leading-relaxed text-slate-700 text-justify">
+          <p>{project.abstract}</p>
+        </div>
+      </section>
+    )}
+
+    <!-- Academic Citations (BibTeX and APA) -->
+    {(project.bibtex || project.apa) && (
+      <section class="mt-12 pt-10 border-t border-slate-200 space-y-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          Cite this Work
+        </h2>
+
+        <!-- APA Citation -->
+        {project.apa && (
+          <div class="rounded-xl bg-white p-5 border border-slate-200 shadow-xs">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">APA Format</h3>
+            <p class="text-sm text-slate-700 font-serif leading-relaxed italic">
+              {project.apa}
+            </p>
+          </div>
+        )}
+
+        <!-- BibTeX Citation -->
+        {project.bibtex && (
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">BibTeX Entry</h3>
+            <BibtexBlock bibtex={project.bibtex} />
+          </div>
+        )}
+      </section>
+    )}
+
+    <!-- Navigation Footer -->
+    <div class="mt-14 pt-8 border-t border-slate-200 flex items-center justify-between">
+      <a
+        href={url('/')}
+        class="inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-700"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span>Back to All Projects</span>
+      </a>
+    </div>
+
+  </article>
+</BaseLayout>

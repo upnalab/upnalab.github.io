@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../utils/url';
+---
+
+<BaseLayout
+  title="Page Not Found · 404 · UPNALAB"
+  description="The page you are looking for could not be found. Explore UPNALAB's research projects, team, and open hardware guides."
+>
+  <div class="min-h-[65vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16">
+    <div class="max-w-xl w-full text-center">
+      
+      <!-- 404 Code Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-50 text-brand-700 border border-brand-200 mb-6">
+        <span>Error 404</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+        <span>Page Not Found</span>
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+        Lost in Mid-Air?
+      </h1>
+
+      <p class="mt-4 text-base text-slate-600 leading-relaxed max-w-md mx-auto">
+        The link you followed may be outdated, mistyped, or might have moved during our migration to our new static site.
+      </p>
+
+      <!-- Quick Directory Navigation -->
+      <div class="mt-8 pt-8 border-t border-slate-200/80">
+        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
+          Explore UPNALAB Sections
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+          <a
+            href={url('/')}
+            class="p-3 rounded-xl bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 text-slate-700 hover:text-brand-700 font-medium transition-all shadow-2xs"
+          >
+            Research Projects
+          </a>
+          <a
+            href={url('/student-projects')}
+            class="p-3 rounded-xl bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 text-slate-700 hover:text-brand-700 font-medium transition-all shadow-2xs"
+          >
+            Student Projects
+          </a>
+          <a
+            href={url('/people')}
+            class="p-3 rounded-xl bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 text-slate-700 hover:text-brand-700 font-medium transition-all shadow-2xs"
+          >
+            People & Team
+          </a>
+          <a
+            href={url('/about')}
+            class="p-3 rounded-xl bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 text-slate-700 hover:text-brand-700 font-medium transition-all shadow-2xs"
+          >
+            About Us & Grants
+          </a>
+          <a
+            href={url('/do-it-yourself')}
+            class="p-3 rounded-xl bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 text-slate-700 hover:text-brand-700 font-medium transition-all shadow-2xs"
+          >
+            Do-It-Yourself
+          </a>
+          <a
+            href="https://github.com/upnalab"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-900 text-white font-medium transition-all shadow-2xs flex items-center justify-center gap-1.5"
+          >
+            <span>GitHub</span>
+            <span class="text-xs text-slate-400">?</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Back Home Button -->
+      <div class="mt-8">
+        <a
+          href={url('/')}
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow-md transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span>Back to Homepage</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

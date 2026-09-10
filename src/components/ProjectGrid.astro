@@ -1,0 +1,248 @@
+---
+import ProjectCard, { type Project } from './ProjectCard.astro';
+
+interface Props {
+  projects: Project[];
+  title?: string;
+  subtitle?: string;
+}
+
+const { 
+  projects, 
+  title, 
+  subtitle
+} = Astro.props;
+
+// Extract all unique tags
+const allTags = Array.from(
+  new Set(
+    projects.flatMap(p => p.tags)
+  )
+).filter(t => t !== 'Research Project' && t !== 'Student Project').sort();
+---
+
+<section class="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+  <!-- Section Title & Intro (optional) -->
+  {(title || subtitle) && (
+    <div class="text-center max-w-3xl mx-auto mb-10">
+      {title && (
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+          {title}
+        </h1>
+      )}
+      {subtitle && (
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  )}
+
+  <!-- Search & Filter Controls -->
+  <div class="mb-10 space-y-4">
+    
+    <!-- Real-time Search Input -->
+    <div class="relative max-w-xl mx-auto">
+      <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <input
+        type="search"
+        id="project-search-input"
+        placeholder="Search projects by title, author, or keywords..."
+        class="w-full pl-10 pr-10 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder-slate-400 text-sm shadow-xs focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all"
+        autocomplete="off"
+      />
+      <button
+        type="button"
+        id="clear-search-btn"
+        class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
+        aria-label="Clear search"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Category Pill Filters -->
+    <div class="flex items-center justify-center flex-wrap gap-2 pt-2">
+      <button
+        type="button"
+        class="filter-tag-btn active-tag px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 bg-slate-900 text-white border border-slate-900 shadow-sm"
+        data-tag="all"
+      >
+        All ({projects.length})
+      </button>
+
+      {allTags.map(tag => {
+        const count = projects.filter(p => p.tags.includes(tag)).length;
+        return (
+          <button
+            type="button"
+            class="filter-tag-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 hover:text-slate-900 transition-all duration-150"
+            data-tag={tag.toLowerCase()}
+          >
+            {tag} <span class="text-slate-400 text-[11px] ml-1">({count})</span>
+          </button>
+        );
+      })}
+    </div>
+
+    <!-- Live Counter -->
+    <div class="text-center text-xs font-medium text-slate-500 pt-1">
+      Showing <span id="visible-count" class="font-bold text-slate-800">{projects.length}</span> of {projects.length} projects
+    </div>
+  </div>
+
+  <!-- Projects Grid -->
+  <div 
+    id="projects-grid"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+  >
+    {projects.map(project => (
+      <ProjectCard project={project} />
+    ))}
+  </div>
+
+  <!-- Empty State (Hidden by default) -->
+  <div id="no-projects-found" class="hidden text-center py-16">
+    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-100 text-slate-400 mb-3">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+    <h3 class="text-base font-semibold text-slate-900">No matching projects</h3>
+    <p class="text-sm text-slate-500 mt-1">Try adjusting your search keywords or removing active filters.</p>
+    <button
+      type="button"
+      id="reset-filters-btn"
+      class="mt-4 inline-flex items-center px-4 py-2 rounded-lg text-xs font-semibold text-brand-600 bg-brand-50 hover:bg-brand-100 transition-colors"
+    >
+      Reset all filters
+    </button>
+  </div>
+</section>
+
+<script>
+  function normalizeStr(str: string): string {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  function setupProjectFiltering() {
+    const searchInput = document.getElementById('project-search-input') as HTMLInputElement | null;
+    const clearBtn = document.getElementById('clear-search-btn');
+    const resetBtn = document.getElementById('reset-filters-btn');
+    const visibleCountEl = document.getElementById('visible-count');
+    const emptyState = document.getElementById('no-projects-found');
+    const tagButtons = document.querySelectorAll('.filter-tag-btn');
+    const cards = document.querySelectorAll('.project-card') as NodeListOf<HTMLElement>;
+
+    if (!cards.length) return;
+
+    let currentTag = 'all';
+    let currentQuery = '';
+
+    function filterCards() {
+      let visibleCount = 0;
+      const normalizedQuery = normalizeStr(currentQuery);
+      const queryWords = normalizedQuery ? normalizedQuery.split(/\s+/).filter(Boolean) : [];
+
+      cards.forEach(card => {
+        const title = normalizeStr(card.getAttribute('data-title') || '');
+        const authors = normalizeStr(card.getAttribute('data-authors') || '');
+        const abstract = normalizeStr(card.getAttribute('data-abstract') || '');
+        const rawTags = card.getAttribute('data-tags') || '[]';
+        const tags: string[] = JSON.parse(rawTags);
+
+        const cardSearchText = `${title} ${authors} ${abstract} ${tags.join(' ')}`;
+        const matchesQuery = queryWords.length === 0 || queryWords.every(word => cardSearchText.includes(word));
+        const matchesTag = currentTag === 'all' || tags.includes(currentTag);
+
+        if (matchesQuery && matchesTag) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (visibleCountEl) visibleCountEl.textContent = String(visibleCount);
+      if (emptyState) {
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+        }
+      }
+
+      window.dispatchEvent(new CustomEvent('projects-filtered'));
+    }
+
+    function setActiveButton(activeBtn: Element) {
+      tagButtons.forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white', 'border-slate-900', 'shadow-sm', 'active-tag');
+        btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+      });
+      activeBtn.classList.add('bg-slate-900', 'text-white', 'border-slate-900', 'shadow-sm', 'active-tag');
+      activeBtn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
+    }
+
+    // Search input listener
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        currentQuery = searchInput.value;
+        if (clearBtn) {
+          if (currentQuery.length > 0) {
+            clearBtn.classList.remove('hidden');
+          } else {
+            clearBtn.classList.add('hidden');
+          }
+        }
+        filterCards();
+      });
+    }
+
+    // Clear search button
+    if (clearBtn && searchInput) {
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        currentQuery = '';
+        clearBtn.classList.add('hidden');
+        searchInput.focus();
+        filterCards();
+      });
+    }
+
+    // Reset button
+    if (resetBtn && searchInput) {
+      resetBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        currentQuery = '';
+        if (clearBtn) clearBtn.classList.add('hidden');
+        currentTag = 'all';
+        const allBtn = Array.from(tagButtons).find(b => b.getAttribute('data-tag') === 'all');
+        if (allBtn) setActiveButton(allBtn);
+        filterCards();
+      });
+    }
+
+    // Tag button listeners
+    tagButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentTag = btn.getAttribute('data-tag') || 'all';
+        setActiveButton(btn);
+        filterCards();
+      });
+    });
+  }
+
+  setupProjectFiltering();
+  document.addEventListener('astro:page-load', setupProjectFiltering);
+</script>

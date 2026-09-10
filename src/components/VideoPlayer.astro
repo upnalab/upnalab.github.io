@@ -1,0 +1,52 @@
+---
+import { url } from '../utils/url';
+
+interface Props {
+  videoUrl?: string;
+  poster?: string;
+  title: string;
+}
+
+const { videoUrl, poster, title } = Astro.props;
+
+function getYouTubeId(url: string | undefined): string | null {
+  if (!url) return null;
+  const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+  return match ? match[1] : null;
+}
+
+const youtubeId = getYouTubeId(videoUrl);
+const isNativeVideo = videoUrl && !youtubeId && (videoUrl.endsWith('.mp4') || videoUrl.includes('.mp4'));
+---
+
+<div class="video-container relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-950 shadow-xl border border-slate-200/50">
+  {youtubeId ? (
+    <iframe
+      src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0`}
+      title={title}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      class="absolute inset-0 w-full h-full border-0"
+    />
+  ) : isNativeVideo ? (
+    <video
+      controls
+      playsinline
+      poster={poster}
+      class="absolute inset-0 w-full h-full object-cover"
+    >
+      <source src={url(videoUrl)} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  ) : poster ? (
+    <img
+      src={poster}
+      alt={title}
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+  ) : (
+    <div class="absolute inset-0 flex items-center justify-center text-slate-500 text-sm">
+      No video available
+    </div>
+  )}
+</div>

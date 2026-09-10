@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.tmp/
+.antigravity/
+.astro/
+.env
+.env.*
+*.log
+*.xml
+Blueprint de Migración UPNALAB.md
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

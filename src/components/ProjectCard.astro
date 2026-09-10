@@ -1,0 +1,264 @@
+---
+import { url } from '../utils/url';
+
+export interface Project {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  year: number;
+  category: string;
+  tags: string[];
+  thumbnail: string;
+  videoPreview: string | null;
+  paperVideo?: string;
+  abstract: string;
+  publicationUrl?: string;
+  doi?: string | null;
+  bibtex?: string;
+  apa?: string;
+  authors: string[];
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const projectUrl = url(`/project/${project.slug}/`);
+const hasVideo = Boolean(project.videoPreview);
+---
+
+<article 
+  class="project-card group relative flex flex-col bg-white rounded-2xl border border-slate-200/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+  style="box-shadow: 0px 2px 10px 0px rgba(12, 113, 195, 0.44);"
+  data-tags={JSON.stringify(project.tags.map(t => t.toLowerCase()))}
+  data-category={project.category.toLowerCase()}
+  data-title={project.title.toLowerCase()}
+  data-authors={project.authors.join(' ').toLowerCase()}
+  data-abstract={project.abstract.toLowerCase()}
+>
+  <!-- Media Preview (Poster Image + Hover-to-Play Video) -->
+  <a href={projectUrl} class="block relative aspect-[4/3] w-full bg-slate-950 overflow-hidden" tabindex="-1" aria-hidden="true">
+    
+    <!-- Static Poster Image -->
+    <img
+      src={url(project.thumbnail)}
+      alt={project.title}
+      loading="lazy"
+      decoding="async"
+      class="project-thumb absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+
+    <!-- Hover-to-play Video Overlay -->
+    {hasVideo && (
+      <video
+        data-src={url(project.videoPreview!)}
+        muted
+        loop
+        playsinline
+        preload="none"
+        class="project-video absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none transition-opacity duration-300"
+      />
+    )}
+
+    <!-- Year Badge -->
+    <div class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-sm text-xs font-semibold text-white tracking-wide shadow-sm">
+      {project.year}
+    </div>
+  </a>
+
+  <!-- Content & Metadata -->
+  <div class="flex flex-col p-4 sm:p-5">
+    <!-- Tags pills -->
+    <div class="flex flex-wrap gap-1.5 mb-2.5">
+      {project.tags.slice(0, 3).map(tag => (
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-brand-50 text-brand-700 border border-brand-100">
+          {tag}
+        </span>
+      ))}
+      {project.tags.length > 3 && (
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-500">
+          +{project.tags.length - 3}
+        </span>
+      )}
+    </div>
+
+    <!-- Title -->
+    <h3 class="font-bold text-base sm:text-lg leading-snug text-slate-900 group-hover:text-brand-600 transition-colors">
+      <a href={projectUrl} class="focus:outline-none hover:underline">
+        {project.title}
+      </a>
+    </h3>
+  </div>
+</article>
+
+<script>
+  let mobileScrollListenerAttached = false;
+  let activeMobileVideo: HTMLVideoElement | null = null;
+
+  function initVideoAutoplay() {
+    const cards = Array.from(document.querySelectorAll('.project-card')) as HTMLElement[];
+    const videoCards = cards.filter(card => card.querySelector('video.project-video'));
+    if (videoCards.length === 0) return;
+
+    const isTouchOrMobile = () => window.matchMedia('(hover: none), (max-width: 768px)').matches;
+
+    // 1. Desktop Hover-to-Play
+    videoCards.forEach(card => {
+      const video = card.querySelector('video.project-video') as HTMLVideoElement | null;
+      if (!video) return;
+
+      if (card.dataset.hoverInitialized) return;
+      card.dataset.hoverInitialized = 'true';
+
+      let isHovered = false;
+
+      card.addEventListener('mouseenter', () => {
+        if (isTouchOrMobile()) return; // Handled by mobile viewport scroll
+        isHovered = true;
+        if (!video.src && video.dataset.src) {
+          video.src = video.dataset.src;
+        }
+        video.muted = true;
+        video.playsInline = true;
+        video.play().then(() => {
+          if (!isHovered) {
+            video.pause();
+            video.currentTime = 0;
+            return;
+          }
+          video.classList.remove('opacity-0');
+          video.classList.add('opacity-100');
+        }).catch(() => {});
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (isTouchOrMobile()) return;
+        isHovered = false;
+        video.pause();
+        video.currentTime = 0;
+        video.classList.remove('opacity-100');
+        video.classList.add('opacity-0');
+      });
+    });
+
+    // 2. Mobile Viewport Autoplay (First thumbnail video in viewport)
+    let ticking = false;
+
+    function updateMobileVideo() {
+      if (!isTouchOrMobile()) {
+        if (activeMobileVideo) {
+          activeMobileVideo.pause();
+          activeMobileVideo.currentTime = 0;
+          activeMobileVideo.classList.remove('opacity-100');
+          activeMobileVideo.classList.add('opacity-0');
+          activeMobileVideo = null;
+        }
+        return;
+      }
+
+      if (document.hidden) {
+        if (activeMobileVideo) {
+          activeMobileVideo.pause();
+        }
+        return;
+      }
+
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const visibleCandidates: { card: HTMLElement; video: HTMLVideoElement; top: number }[] = [];
+
+      for (const card of videoCards) {
+        // Exclude filtered or hidden cards
+        if (card.classList.contains('hidden') || card.style.display === 'none') continue;
+
+        const video = card.querySelector('video.project-video') as HTMLVideoElement | null;
+        if (!video) continue;
+
+        const media = card.querySelector('.project-thumb') || card;
+        const rect = media.getBoundingClientRect();
+
+        // Check if thumbnail is inside or entering active viewport area
+        // 60px buffer ensures smooth handover when scrolling past the top edge
+        if (rect.bottom > 60 && rect.top < viewportHeight - 60) {
+          visibleCandidates.push({ card, video, top: rect.top });
+        }
+      }
+
+      // Sort by vertical position from top to find the FIRST thumbnail video
+      visibleCandidates.sort((a, b) => a.top - b.top);
+
+      const target = visibleCandidates.length > 0 ? visibleCandidates[0].video : null;
+
+      if (target === activeMobileVideo) {
+        if (target && target.paused) {
+          target.play().catch(() => {});
+        }
+        return;
+      }
+
+      // Pause previous video
+      if (activeMobileVideo && activeMobileVideo !== target) {
+        activeMobileVideo.pause();
+        activeMobileVideo.currentTime = 0;
+        activeMobileVideo.classList.remove('opacity-100');
+        activeMobileVideo.classList.add('opacity-0');
+      }
+
+      activeMobileVideo = target;
+
+      // Autoplay the first video in viewport
+      if (target) {
+        if (!target.src && target.dataset.src) {
+          target.src = target.dataset.src;
+        }
+        target.muted = true;
+        target.playsInline = true;
+        target.play().then(() => {
+          if (activeMobileVideo === target) {
+            target.classList.remove('opacity-0');
+            target.classList.add('opacity-100');
+          } else {
+            target.pause();
+            target.currentTime = 0;
+          }
+        }).catch(() => {});
+      }
+    }
+
+    function onScrollOrResize() {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateMobileVideo();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    if (!mobileScrollListenerAttached) {
+      window.addEventListener('scroll', onScrollOrResize, { passive: true });
+      window.addEventListener('resize', onScrollOrResize, { passive: true });
+      window.addEventListener('projects-filtered', onScrollOrResize);
+      document.addEventListener('visibilitychange', updateMobileVideo);
+      mobileScrollListenerAttached = true;
+    }
+
+    // Initial check
+    setTimeout(updateMobileVideo, 120);
+  }
+
+  // Run on initial load and view transitions
+  initVideoAutoplay();
+  document.addEventListener('astro:page-load', initVideoAutoplay);
+</script>
+
+<style>
+  .project-card {
+    box-shadow: 0px 2px 10px 0px rgba(12, 113, 195, 0.44);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .project-card:hover {
+    box-shadow: 0px 4px 18px 0px rgba(12, 113, 195, 0.60) !important;
+  }
+</style>

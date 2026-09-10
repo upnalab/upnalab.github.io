@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VideoPlayer from '../components/VideoPlayer.astro';
+import projectsData from '../data/projects.json';
+import { url } from '../utils/url';
+
+const studentProjects = projectsData
+  .filter(p => p.category === 'Student Project')
+  .sort((a, b) => b.year - a.year);
+---
+
+<BaseLayout
+  title="Student Projects · UPNALAB"
+  description="Showcase of creative interactive multimedia projects developed by undergraduate computer science students at UPNA."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <!-- Accessible Semantic H1 for Search Engines and Screen Readers -->
+    <h1 class="sr-only">Student Projects · Creative Interactive Systems at Public University of Navarre</h1>
+
+    <!-- Student Projects List by Year -->
+    <div class="space-y-10 sm:space-y-12">
+      {studentProjects.map(project => (
+        <article class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="flex flex-col lg:flex-row gap-8 items-start">
+            
+            <!-- Video Column -->
+            <div class="w-full lg:w-3/5 shrink-0">
+              <VideoPlayer
+                videoUrl={project.paperVideo || undefined}
+                poster={url(project.thumbnail)}
+                title={project.title}
+              />
+            </div>
+
+            <!-- Info Column -->
+            <div class="w-full lg:w-2/5 flex flex-col justify-between">
+              <div>
+                <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-900 text-white mb-3 shadow-sm">
+                  Academic Year {project.year}
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900 tracking-tight mb-3">
+                  <a href={url(`/project/${project.slug}/`)} class="hover:text-brand-600 transition-colors">
+                    {project.title}
+                  </a>
+                </h2>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <a
+                  href={url(`/project/${project.slug}/`)}
+                  class="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 hover:text-brand-700"
+                >
+                  <span>view details</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PersonCard, { type Person } from '../components/PersonCard.astro';
+import PersonModal from '../components/PersonModal.astro';
+import peopleData from '../data/people.json';
+
+const typedPeople = peopleData as Person[];
+
+const activeMembers = typedPeople.filter(p => p.category === 'Active');
+const visitors = typedPeople.filter(p => p.category === 'Visitors');
+const alumni = typedPeople.filter(p => p.category === 'Alumni');
+---
+
+<BaseLayout
+  title="People & Team · UPNALAB"
+  description="Meet the researchers, engineers, PhD candidates and collaborators of UPNALAB at the Public University of Navarre."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    
+    <!-- Active Team Section -->
+    <section class="mb-16">
+      <div class="mb-8 pb-3 border-b border-slate-200">
+        <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+          Current Members
+        </h1>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {activeMembers.map(person => (
+          <PersonCard person={person} />
+        ))}
+      </div>
+    </section>
+
+    <!-- Visitors Section -->
+    {visitors.length > 0 && (
+      <section class="mb-16">
+        <div class="mb-8 pb-3 border-b border-slate-200">
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">
+            Visiting Researchers & Students
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {visitors.map(person => (
+            <PersonCard person={person} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Alumni Section -->
+    {alumni.length > 0 && (
+      <section>
+        <div class="mb-8 pb-3 border-b border-slate-200">
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">
+            Alumni & Former Members
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {alumni.map(person => (
+            <PersonCard person={person} />
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+
+  <!-- Person Bio Modals -->
+  <PersonModal people={typedPeople} />
+</BaseLayout>

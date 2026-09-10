@@ -1,0 +1,104 @@
+---
+interface Props {
+  bibtex: string;
+  id?: string;
+}
+
+const { bibtex, id = "bibtex-block" } = Astro.props;
+---
+
+<div class="relative group rounded-xl bg-slate-900 text-slate-100 overflow-hidden border border-slate-800 shadow-md">
+  <!-- Top bar with label and copy button -->
+  <div class="flex items-center justify-between px-4 py-2.5 bg-slate-800/80 border-b border-slate-700/60">
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+      <span class="ml-2 text-xs font-mono font-medium text-slate-400">BibTeX Citation</span>
+    </div>
+
+    <!-- Copy Button -->
+    <button
+      type="button"
+      class="copy-bibtex-btn inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md bg-slate-700 hover:bg-brand-600 text-slate-200 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
+      data-bibtex={bibtex}
+      aria-label="Copy BibTeX citation to clipboard"
+    >
+      <svg class="copy-icon w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+      </svg>
+      <svg class="check-icon w-3.5 h-3.5 hidden text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+      <span class="btn-text">Copy</span>
+    </button>
+  </div>
+
+  <!-- Code content -->
+  <pre class="p-4 overflow-x-auto text-xs sm:text-sm font-mono leading-relaxed text-slate-200 selection:bg-brand-600 selection:text-white"><code>{bibtex}</code></pre>
+</div>
+
+<script>
+  async function copyTextToClipboard(text: string): Promise<boolean> {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        // Fallback to execCommand
+      }
+    }
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.top = '0';
+      textarea.style.left = '0';
+      textarea.style.width = '1px';
+      textarea.style.height = '1px';
+      textarea.style.padding = '0';
+      textarea.style.border = 'none';
+      textarea.style.outline = 'none';
+      textarea.style.boxShadow = 'none';
+      textarea.style.background = 'transparent';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      const success = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return success;
+    } catch {
+      return false;
+    }
+  }
+
+  function initBibtexCopyButtons() {
+    const buttons = document.querySelectorAll('.copy-bibtex-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const text = btn.getAttribute('data-bibtex') || '';
+        const copyIcon = btn.querySelector('.copy-icon');
+        const checkIcon = btn.querySelector('.check-icon');
+        const btnText = btn.querySelector('.btn-text');
+
+        const success = await copyTextToClipboard(text);
+        if (success && copyIcon && checkIcon && btnText) {
+          copyIcon.classList.add('hidden');
+          checkIcon.classList.remove('hidden');
+          btnText.textContent = 'Copied!';
+          btn.classList.add('bg-emerald-700', 'text-white');
+
+          setTimeout(() => {
+            copyIcon.classList.remove('hidden');
+            checkIcon.classList.add('hidden');
+            btnText.textContent = 'Copy';
+            btn.classList.remove('bg-emerald-700', 'text-white');
+          }, 2000);
+        }
+      });
+    });
+  }
+
+  initBibtexCopyButtons();
+  document.addEventListener('astro:page-load', initBibtexCopyButtons);
+</script>

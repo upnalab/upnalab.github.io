@@ -1,0 +1,162 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { url } from '../utils/url';
+import '../styles/global.css';
+
+export interface AcademicCitation {
+  title?: string;
+  authors?: string[];
+  date?: string;
+  doi?: string | null;
+  pdfUrl?: string;
+  publicationUrl?: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  citation?: AcademicCitation;
+  jsonLd?: Record<string, any> | Record<string, any>[];
+  keywords?: string;
+}
+
+const {
+  title = "UPNALAB · Combining computer science, physics, electronics, mechanics and chemistry to create interactive devices",
+  description = "UPNALAB is a cutting-edge research group at the Public University of Navarre (UPNA) combining computer science, physics, electronics, mechanics and chemistry to create interactive devices.",
+  image = "/assets/images/site/upnalab_header_logo.png",
+  article = false,
+  citation,
+  jsonLd,
+  keywords,
+} = Astro.props;
+
+const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+const pathname = Astro.url.pathname;
+const cleanPath = basePath && pathname.startsWith(basePath)
+  ? pathname.slice(basePath.length)
+  : pathname;
+const normalizedPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+const canonicalURL = new URL(normalizedPath, 'https://upnalab.com');
+const ogImageUrl = image.startsWith('http') ? image : `https://upnalab.com${image}`;
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  "@id": "https://upnalab.com/#organization",
+  "name": "UPNALAB",
+  "alternateName": "UPNA Interactive Devices Research Group",
+  "url": "https://upnalab.com",
+  "logo": "https://upnalab.com/assets/images/site/upnalab_header_logo.png",
+  "description": "Research group combining computer science, physics, electronics, mechanics and chemistry to create interactive devices.",
+  "parentOrganization": {
+    "@type": "CollegeOrUniversity",
+    "name": "Universidad Pública de Navarra",
+    "alternateName": "UPNA",
+    "url": "https://www.unavarra.es"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Edificio Los Tejos, Campus Arrosadia",
+    "addressLocality": "Pamplona",
+    "addressRegion": "Navarra",
+    "postalCode": "31006",
+    "addressCountry": "ES"
+  },
+  "sameAs": [
+    "https://twitter.com/upnalab",
+    "https://www.youtube.com/@UpnaLab",
+    "https://github.com/upnalab",
+    "https://www.instructables.com/member/UpnaLab/"
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-slate-50 text-slate-900 antialiased selection:bg-brand-500 selection:text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href={url('/favicon.png')} />
+    <link rel="icon" type="image/png" sizes="32x32" href={url('/favicon-32x32.png')} />
+    <link rel="icon" type="image/png" sizes="192x192" href={url('/favicon-192x192.png')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={url('/apple-touch-icon.png')} />
+    <link rel="shortcut icon" href={url('/favicon.ico')} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords || "UPNALAB, UPNA, interactive devices, acoustic levitation, volumetric displays, mid-air haptics, tangible interaction, HCI, computer science, physics, electronics, mechanics, chemistry"} />
+    <meta name="theme-color" content="#0f172a" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:site_name" content="UPNALAB" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content={article ? "article" : "website"} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:site" content="@upnalab" />
+    <meta property="twitter:creator" content="@upnalab" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageUrl} />
+    <meta property="twitter:image:alt" content={title} />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+    {jsonLd && (
+      Array.isArray(jsonLd) ? (
+        jsonLd.map(item => (
+          <script type="application/ld+json" set:html={JSON.stringify(item)} />
+        ))
+      ) : (
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      )
+    )}
+
+    <!-- Google Scholar & Academic Metadata -->
+    {citation && (
+      <>
+        {citation.title && <meta name="citation_title" content={citation.title} />}
+        {citation.authors && citation.authors.map(author => (
+          <meta name="citation_author" content={author} />
+        ))}
+        {citation.date && <meta name="citation_publication_date" content={citation.date} />}
+        {citation.doi && <meta name="citation_doi" content={citation.doi} />}
+        {citation.pdfUrl && <meta name="citation_pdf_url" content={citation.pdfUrl} />}
+        {citation.publicationUrl && <meta name="citation_abstract_html_url" content={citation.publicationUrl} />}
+      </>
+    )}
+
+    <!-- XML Sitemap -->
+    <link rel="sitemap" href={url('/sitemap-index.xml')} />
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+
+  <body class="flex min-h-full flex-col bg-slate-50 text-slate-900">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

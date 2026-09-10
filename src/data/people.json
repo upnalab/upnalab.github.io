@@ -1,0 +1,534 @@
+[
+  {
+    "slug": "asier-marzo",
+    "name": "Asier Marzo",
+    "role": "Staff",
+    "category": "Active",
+    "subCategory": "Staff",
+    "photo": "/assets/images/people/asier-marzo.webp",
+    "bio": "<p class=\"mb-4\">Asier Marzo has a PhD in Computer Science from the Public University of Navarra, where he researches and teaches. During his PhD he worked in <strong>serious games, augmented reality and acoustic levitation</strong>. He has participated in several national and international projects. He has publications in high-impact journals (e.g. Nature Communications, Physical Review Letters and PNAS) as well as articles in conferences A* (CHI, UIST, Multimedia and ISMAR). He was awarded the prize for the best academic experient in 2007, got a predoctoral fellowship from the Government of Navarra, and worked as a postdoc at the University of Bristol (United Kingdom). Currently his research focuses on using sound and light to manipulate matter as well as using cutting edge technology to create novel interactive devices.<br />His works have appeared in various TV programs (BBC, Antena 3, EiTB) and in numerous science and technology blogs (Microsiervos, Hackaday, TEDx, Instructables, IFL). One of its main objectives is to make research more accessible through the dissemination in <strong>workshops, talks and Do-it-yourself sites</strong>.</p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://es.linkedin.com/in/asiermarzo/en",
+      "scholar": "https://scholar.google.com/citations?user=--aDNc0AAAAJ",
+      "orcid": "https://orcid.org/0000-0001-6433-1528",
+      "upna": "https://www.unavarra.es/pdi?uid=8600",
+      "twitter": "https://twitter.com/AsierMarzo",
+      "github": "",
+      "email": "asier.marzo@unavarra.es"
+    }
+  },
+  {
+    "slug": "adriana-arregui",
+    "name": "Adriana Arregui",
+    "role": "PhD",
+    "category": "Alumni",
+    "subCategory": "Previous Member",
+    "photo": "/assets/images/people/adriana-arregui.webp",
+    "bio": "<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">Adriana graduated in Nursing at the Public University of Navarre (2003) and in 2005 she specialised in medical-surgical nursing. She obtained a master in Nursing Care Management (2017) and in Health Science Research (2018). Between 2005 and 2013, she worked as a nursing assistant in medical-surgical units. From 2013 to 2016, she participated as a </span></i><b><i>clinical research nurse</i></b><i><span style=\"font-weight: 400;\"> in several </span></i><b><i>neurology </i></b><i><span style=\"font-weight: 400;\">clinical trials. In 2016, she returned to nursing care in medical-surgical units.</span></i></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">She is a member of the Research Group on Techniques and Technologies for the Improvement of the Quality of Life and Care Services at the Health Research Institute of Navarra Foundation (IdiSNA) and a member of the Research Group on New Nursing Practices (INNO-CARE) at the Public University of Navarra (UPNA). Adriana is passionate about novel technology and how it can be </span></i><b><i>applied to nursing</i></b><i><span style=\"font-weight: 400;\">. She is currently focused on </span></i><b><i>haptic technology</i></b><i><span style=\"font-weight: 400;\">.</span></i></p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/adriana-arregui-86b4a9163/",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "alex-martinez",
+    "name": "Alex Martinez",
+    "role": "Postdoc",
+    "category": "Visitors",
+    "subCategory": "Visitor",
+    "photo": "/assets/images/people/alex-martinez.webp",
+    "bio": "<p class=\"mb-4\">Work in progress...</p>",
+    "links": {
+      "website": "",
+      "linkedin": "",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "amalia-ortiz",
+    "name": "Amalia Ortiz",
+    "role": "Staff",
+    "category": "Active",
+    "subCategory": "Staff",
+    "photo": "/assets/images/people/amalia-ortiz.webp",
+    "bio": "<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">Amalia studied Computer Engineering at the University of Deusto ESIDE (2000), completing her degree at the Lund Universitet (Sweden) with an Erasmus scholarship. She has a Master in Virtual Reality from the University of Deusto ESIDE (2001).</span></i></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">In 2008, she obtained her Phd at the Faculty of Informatics at the University of the Basque Country in </span></i><b><i>emotional interaction through 3D avatars</i></b><i><span style=\"font-weight: 400;\">.</span></i></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">From 2001 to 2009 she worked as a researcher at the Center for Visual Interaction Technologies and Communications (VICOMTech), holding the position of </span></i><b><i>director of Interactions for Education, entertainment and E-Inclusion</i></b><i><span style=\"font-weight: 400;\"> from 2006. From 2009 to 2011, she worked as </span></i><b><i>Director of R&amp;D</i></b><i><span style=\"font-weight: 400;\"> at the </span></i><b><i>videogame</i></b><i><span style=\"font-weight: 400;\"> company ENNE Entertiainment Studios. From 2012 to 2019, she was director of operations at the company </span></i><b><i>VISIONA</i></b><i><span style=\"font-weight: 400;\"> Control Industrial.</span></i></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">Since 2019, she works full time at the Public University of Navarra, although she has been teaching since 2008 as an associate professor.</span></i></p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/amalia-ortiz-58b9a19/",
+      "scholar": "https://scholar.google.com/citations?user=SL7aWgEAAAAJ",
+      "orcid": "https://orcid.org/0000-0002-6446-6024",
+      "upna": "https://www.unavarra.es/pdi?uid=8910",
+      "twitter": "",
+      "github": "",
+      "email": "amalia.ortiz@unavarra.es"
+    }
+  },
+  {
+    "slug": "elodie-bouzbib",
+    "name": "Elodie Bouzbib",
+    "role": "Staff, Postdoc",
+    "category": "Active",
+    "subCategory": "Staff",
+    "photo": "/assets/images/people/elodie-bouzbib.webp",
+    "bio": "<p class=\"mb-4\">Elodie Bouzbib is currently a <strong>Postdoctorate</strong> researcher at UpnaLab - Interactive Future Devices. Her field of research is around <strong>Ubiquitous Haptic Interfaces for eXtended Realities</strong>, either using passive, active or pseudo-techniques.</p>\n<p class=\"mb-4\">She previously received her PhD in Human-Computer Interaction, Haptics, Virtual Reality and Robotics at Sorbonne Université (Paris, France), and did a first post-doctorate fellowship at Inria Rennes (France) and Skoltech Moscow (Russia).</p>\n<p class=\"mb-4\">She received the Award for Best Pluridisplinary PhD Thesis from AFIHM – the French Speaking Association of Human-Computer Interaction, in 2022. She mostly designs robotised interfaces to enhance haptics in eXtended Reality. She originally has a Master’s Degree of Engineering from l’Ecole des Mines d’Albi-Carmaux.</p>\n<p class=\"mb-4\">She also spent three years developing and designing wearable prototypes using EAPs (electro-active polymers) as a Systems Integration Team Lead at StretchSense Limited (Auckland, New Zealand).</p>",
+    "links": {
+      "website": "https://www.bouzbib.com",
+      "linkedin": "https://www.linkedin.com/in/elodie-bouzbib-4852bb84/",
+      "scholar": "https://scholar.google.fr/citations?user=MBJeuMwAAAAJ",
+      "orcid": "https://orcid.org/0000-0002-5221-2991",
+      "upna": "",
+      "twitter": "https://twitter.com/elodie_bouzbib",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "inigo-ezcurdia",
+    "name": "Iñigo Ezcurdia",
+    "role": "Staff",
+    "category": "Active",
+    "subCategory": "Staff",
+    "photo": "/assets/images/people/inigo-ezcurdia.webp",
+    "bio": "<p class=\"mb-4\">Iñigo Ezcurdia is an Assistant Professor at the Public University of Navarre (UPNA), where he also received his B.Eng., M.Sc., and Ph.D. degrees in Computer Science. His research focuses on the intersection of acoustics, human-computer interaction, and advanced fabrication techniques, with particular emphasis on ultrasound levitation, haptics, and novel display technologies.</p>\n<p class=\"mb-4\">Dr. Ezcurdia has published extensively in top-tier venues, including SIGGRAPH, UIST, CHI ISS, IEEE Transactions on Haptics, and Scientific Reports. He also brings industry experience, having worked as a freelance web and mobile application developer.</p>\n<p class=\"mb-4\">Beyond his academic achievements, Iñigo actively contributes to his community as a Scout Leader and volunteer for the Navarra Lan Party.</p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/inigoezcurdia/",
+      "scholar": "https://scholar.google.com/citations?user=tw7f-CkAAAAJ",
+      "orcid": "https://orcid.org/0000-0003-4268-6760",
+      "upna": "https://www.unavarra.es/pdi?uid=811121",
+      "twitter": "https://twitter.com/upnalab",
+      "github": "",
+      "email": "inigofermin.ezcurdia@unavarra.es"
+    }
+  },
+  {
+    "slug": "iosune-sarasate",
+    "name": "Iosune Sarasate",
+    "role": "PhD Student",
+    "category": "Active",
+    "subCategory": "PhD Student",
+    "photo": "/assets/images/people/iosune-sarasate.webp",
+    "bio": "<p class=\"mb-4\">Iosune Sarasate Azcona is an <strong>artist</strong> and <strong>researcher</strong> based in Pamplona, Spain. In her work she plays with possibilities and alternatives through technology, hoping to open up multiple possible futures.</p>\n<p class=\"mb-4\">&nbsp;</p>\n<p class=\"mb-4\">She completed a BA in Arts (Euskal Herriko Unibertsitatea), a MA in Visual Arts and Multimedia (Universitat Politécnica de Valéncia) and a MA in Interface Cultures (Kunstuniversität Linz).</p>\n<p class=\"mb-4\">&nbsp;</p>\n<p class=\"mb-4\">Her work has been exhibited in different art centres and festivals such as Ars Electronica festival (Austria), WIP Festival (Cyprus), Atelierhaus Saltzam (Austria), Mediaestruch (Spain) and Centro Huarte (Spain).</p>\n<p class=\"mb-4\">&nbsp;</p>\n<p class=\"mb-4\">She has also participated in several artistic residencies such as the Young Art Residencies of Navarra or the Digital Arts Residencies of Mediaestruch.</p>",
+    "links": {
+      "website": "https://www.iosunesarasate.com/",
+      "linkedin": "https://www.linkedin.com/in/iosunesarasate",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": "iosune.sarasate@unavarra.es"
+    }
+  },
+  {
+    "slug": "ismel-dominguez",
+    "name": "Ismel Dominguez",
+    "role": "Postdoc",
+    "category": "Active",
+    "subCategory": "Staff",
+    "photo": "/assets/images/people/ismel-dominguez.webp",
+    "bio": "<p class=\"mb-4\">Ismel Dominguez Rodriguez is a Telecomunications and Electronics engineer graduated from the Hermanos Saiz Montes de oca University, Pinar del Rio, Cuba in 2009. He is a Substitute Professor at the Public University of Navarre (UPNA), where he also received Ph.D. degree in Communication Technologies, Bioengineering and Renewable Energies in 2023. His research focuses on optic fiber sensors based on Lossy-Mode resonance and volumetric display technologies.</p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/ismel-domnguez-rodrguez-b5288b177/",
+      "scholar": "https://scholar.google.com/citations?user=3jabpVMAAAAJ&hl=en",
+      "orcid": "",
+      "upna": "https://www.unavarra.es/pdi?uid=811835",
+      "twitter": "",
+      "github": "",
+      "email": "ismel.dominguez@unavarra.es"
+    }
+  },
+  {
+    "slug": "ivan-fernandez",
+    "name": "Ivan Fernandez",
+    "role": "PhD Student",
+    "category": "Active",
+    "subCategory": "PhD Student",
+    "photo": "/assets/images/people/ivan-fernandez.webp",
+    "bio": "<p class=\"mb-4\"><span class=\"ui-provider bhk bhl bhm bhn bho bhp bhq bhr bhs bht bhu bhv bhw bhx bhy bhz bia bib bic bid bie bif big bih bii bij bik bil bim bin bio bip biq bir bis\" dir=\"ltr\">Graduated in Physics by the Universidad de Zaragoza (2021) and <strong>Master in Physics of the Universe: Cosmology, Astrophysics, Particles and Astroparticles </strong> by the Universidad de Zaragoza (2023), where he was awarded an extraordinary prize for his academic record. Currently working as a collaborator in UpnaLab's projects related to InteVol project. Passionate about theoretical physics and, above all, about pushing the boundaries of science.</span></p>",
+    "links": {
+      "website": "",
+      "linkedin": "",
+      "scholar": "https://scholar.google.com/citations?user=YKIakxMAAAAJ&hl=es",
+      "orcid": "https://orcid.org/0009-0009-1405-3035",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": "ivan.fernandezf@unavarra.es"
+    }
+  },
+  {
+    "slug": "javier-zaratiegui-2",
+    "name": "Javier Zaratiegui",
+    "role": "PhD",
+    "category": "Alumni",
+    "subCategory": "Previous Member",
+    "photo": "/assets/images/people/javier-zaratiegui-2.webp",
+    "bio": "",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/javierzaratiegui",
+      "scholar": "https://scholar.google.es/citations?user=yL0XNUUAAAAJ&hl=en&oi=ao",
+      "orcid": "https://orcid.org/0000-0002-6767-2237",
+      "upna": "https://www.researchgate.net/profile/Javier-Zaratiegui-2",
+      "twitter": "https://twitter.com/tovarnashop",
+      "github": "",
+      "email": "javier@zaratiegui.com"
+    }
+  },
+  {
+    "slug": "josu-irisarri",
+    "name": "Josu Irisarri",
+    "role": "Staff",
+    "category": "Active",
+    "subCategory": "Staff",
+    "photo": "/assets/images/people/josu-irisarri.webp",
+    "bio": "<p class=\"mb-4\">• Josu has a <strong>PhD in Computer Science</strong> from the Public University of Navarra and is focused on <strong>HCI (Human-Computer Interaction) research</strong> field. He has obtained a Bachelor’s degree in Electrical &amp; Electronic Engineering and a Master’s degree in Industrial Engineering, also at the Public University of Navarre. He specialized his studies in Project Management and Quality Engineering and participated in the international program <a id=\"menurt8\" class=\"fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn\" title=\"https://europeanprojectsemester.eu/\" href=\"https://europeanprojectsemester.eu/\" target=\"_blank\" rel=\"noreferrer noopener\" aria-label=\"Vínculo European Project Semester\">European Project Semester</a> (EPS) in Hochschule Osnabrück (Germany) after receiving an ERASMUS<i>+</i> scholarship.</p>\n<p class=\"mb-4\">&nbsp;</p>\n<p class=\"mb-4\">• Currently, he is immersed in the <a id=\"menurta\" class=\"fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn\" title=\"https://erasmus-plus.ec.europa.eu/projects/search/details/2025-1-es01-ka220-hed-000354146\" href=\"https://erasmus-plus.ec.europa.eu/projects/search/details/2025-1-ES01-KA220-HED-000354146\" target=\"_blank\" rel=\"noreferrer noopener\" aria-label=\"Vínculo TRANSPER\">TRANSPER</a> project funded by the Erasmus<i>+</i> EU programme for education, training, youth and sport. This project aims to develop a <strong>transdisciplinary learning methodology</strong> based on the technologies and the performing arts through a custom software that transforms pre-recorded human movements, like on stage.</p>\n<p class=\"mb-4\">&nbsp;</p>\n<p class=\"mb-4\">• He worked in the <a id=\"menurtc\" class=\"fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn\" title=\"https://cordis.europa.eu/project/id/101017746\" href=\"https://cordis.europa.eu/project/id/101017746\" target=\"_blank\" rel=\"noreferrer noopener\" aria-label=\"Vínculo FET TOUCHLESS project\">FET TOUCHLESS project</a> (Touchless Haptic Experience with Neurocognitive AI) funded by the EU H2020 program, in which he could perform his doctoral thesis titled <a id=\"menurte\" class=\"fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn\" title=\"https://observatorio-investigacion.unavarra.es/documentos/6791450d56b9ea73fcf7b3ae?lang=en\" href=\"https://observatorio-investigacion.unavarra.es/documentos/6791450d56b9ea73fcf7b3ae?lang=en\" target=\"_blank\" rel=\"noreferrer noopener\" aria-label=\"Vínculo Novel Contactless Haptic Technologies for Creating Affective Sensations when Interacting with Computer Systems\"><i>Novel Contactless Haptic Technologies for Creating Affective Sensations when Interacting with Computer Systems</i></a><i>. </i>During his PhD, Josu completed his international internship within the <a id=\"menurtg\" class=\"fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn\" title=\"https://mehr-research.science/\" href=\"https://mehr-research.science/\" target=\"_blank\" rel=\"noreferrer noopener\" aria-label=\"Vínculo Mehr Research\">Mehr Research</a> group at the <a id=\"menurti\" class=\"fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn\" title=\"https://www.gla.ac.uk/research/arc/\" href=\"https://www.gla.ac.uk/research/arc/\" target=\"_blank\" rel=\"noreferrer noopener\" aria-label=\"Vínculo Advanced Research Centre\">Advanced Research Centre</a> (ARC) of the University of Glasgow.</p>\n<p class=\"mb-4\">&nbsp;</p>\n<p class=\"mb-4\">• Main contributions:<br /><ul><br /> \t<li><a id=\"menurtk\" class=\"fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn\" title=\"https://www.science.org/doi/10.1126/sciadv.adp0686\" href=\"https://www.science.org/doi/10.1126/sciadv.adp0686\" target=\"_blank\" rel=\"noreferrer noopener\" aria-label=\"Vínculo Electric Plasma Guided with Ultrasonic Fields\"><i>Electric Plasma Guided with Ultrasonic Fields</i></a><i> </i>- Science Advances (Q1)</li><br /> \t<li><a id=\"menurtm\" class=\"fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn\" title=\"https://dl.acm.org/doi/10.1145/3544549.3583913\" href=\"https://dl.acm.org/doi/10.1145/3544549.3583913\" target=\"_blank\" rel=\"noreferrer noopener\" aria-label=\"Vínculo TOUCHLESS Demonstrations\">TOUCHLESS Demonstrations</a> - Human-Computer Interaction CHI 2023(A⁺)</li><br /> \t<li>StreamFog - Human-Computer Interaction CHI 2026 (A⁺)</li><br /></ul><br />• From time to time, he keeps an eye on <strong>Maker technology</strong> events around the world and is still in contact with the Planetarium of Pamplona as a STEM mentor, participating in events like <a id=\"menurto\" class=\"fui-Link ___1q1shib f2hkw1w f3rmtva f1ewtqcl fyind8e f1k6fduh f1w7gpdv fk6fouc fjoy568 figsok6 f1s184ao f1mk8lai fnbmjn9 f1o700av f13mvf36 f1cmlufx f9n3di6 f1ids18y f1tx3yz7 f1deo86v f1eh06m1 f1iescvh fhgqx19 f1olyrje f1p93eir f1nev41a f1h8hb77 f1lqvz6u f10aw75t fsle3fq f17ae5zn\" title=\"https://esero.es/cansat/\" href=\"https://esero.es/cansat/\" target=\"_blank\" rel=\"noreferrer noopener\" aria-label=\"Vínculo CanSat\">CanSat</a>.</p>",
+    "links": {
+      "website": "https://www.latierradelavirtud.com",
+      "linkedin": "https://es.linkedin.com/in/josu-irisarri-erviti-388227155",
+      "scholar": "https://scholar.google.es/citations?user=Au6qtHQAAAAJ",
+      "orcid": "https://orcid.org/0000-0001-8783-7732",
+      "upna": "http://www.unavarra.es/pdi/?uid=812158&languageId=1",
+      "twitter": "",
+      "github": "",
+      "email": "josu.irisarri@unavarra.es"
+    }
+  },
+  {
+    "slug": "keita-okano",
+    "name": "Keita Okano",
+    "role": "Student",
+    "category": "Visitors",
+    "subCategory": "Visitor",
+    "photo": "/assets/images/people/keita-okano.webp",
+    "bio": "<p class=\"mb-4\">I am a graduate student at Tsukuba University in Japan, and I have a deep interest in fluid engineering.</p>\n<p class=\"mb-4\">My research focuses on the internal and external flow of a droplet suspended in an acoustic field, and attempts to elucidate the interaction of each flow field through visualization and measurement.</p>\n<p class=\"mb-4\">I am visiting UPNALAB as an internship student for 3 months, and working on the development of an angular motion field device using acoustic phased array.</p>",
+    "links": {
+      "website": "",
+      "linkedin": "",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "lander-jimenez",
+    "name": "Lander Jimenez",
+    "role": "Project Collaborator",
+    "category": "Active",
+    "subCategory": "Project Collaborator",
+    "photo": "/assets/images/people/lander-jimenez.webp",
+    "bio": "<p class=\"mb-4\"><span data-teams=\"true\">Lander studied computer science at Upna and is currently taking a Master in Machine Learning. He likes computer graphics, fluid simulations and how to optimize time-domain simulations in the GPU.</span></p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/lander-jimenez-219588310/",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "",
+      "github": "https://github.com/lantrol/",
+      "email": ""
+    }
+  },
+  {
+    "slug": "manuel-lopezamo",
+    "name": "Manuel Lopezamo",
+    "role": "Researcher",
+    "category": "Alumni",
+    "subCategory": "Previous Member",
+    "photo": "/assets/images/people/manuel-lopezamo.webp",
+    "bio": "<p class=\"mb-4\">Manuel is a new researcher working at UpnaLab. He has done his master's degree on Machine Learning and AI at Universidad politécnica de Madrid and his bachelor degree on Computer Science at the UPNA. Currently focused on developing software, simulations and machine learning systems, he is glad to be working in the various research proyects that UpnaLab hosts. During this interesting times, these fields evolve every day. There could not be a better moment to research and find innovative aplications for them.</p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/manuel-lopez-amo-ocon/",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": "manuel.lopezamo@unavarra.es"
+    }
+  },
+  {
+    "slug": "marika-sirkka",
+    "name": "Marika Sirkka",
+    "role": "Student",
+    "category": "Visitors",
+    "subCategory": "Visitor",
+    "photo": "/assets/images/people/marika-sirkka.webp",
+    "bio": "<p class=\"mb-4\">Work in progress...</p>",
+    "links": {
+      "website": "",
+      "linkedin": "",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "mikel-aldea",
+    "name": "Mikel Aldea",
+    "role": "PhD Student",
+    "category": "Active",
+    "subCategory": "PhD Student",
+    "photo": "/assets/images/people/mikel-aldea.webp",
+    "bio": "<p class=\"mb-4\"><span data-teams=\"true\">Mikel Aldea is a second year PhD student at the Public University of Navarre (UPNA), where he also received his Bachelor degree in Data Science. In addition, he obtained a master's degree in Computational Engineering and Mathematics at the University of Rovira i virgili. His research focus on optimization of acoustic patterns and haptics.</span></p>",
+    "links": {
+      "website": "",
+      "linkedin": "http://www.linkedin.com/in/mikel-aldea-esnaola-42b46b234",
+      "scholar": "https://scholar.google.es/citations?user=LaSO480AAAAJ",
+      "orcid": "https://orcid.org/0009-0009-0549-5333",
+      "upna": "https://www.unavarra.es/buscar?dondeBuscar=personas&page=1&persid=812931",
+      "twitter": "",
+      "github": "",
+      "email": "mikel.aldea@unavarra.es"
+    }
+  },
+  {
+    "slug": "naroa-iriarte",
+    "name": "Naroa Iriarte",
+    "role": "PhD Student",
+    "category": "Active",
+    "subCategory": "PhD Student",
+    "photo": "/assets/images/people/naroa-iriarte.webp",
+    "bio": "<p class=\"mb-4\">Naroa is a computer engineer graduated from the Public University of Navarre (UPNA). She is passionate about integrating theory and practice in engineering to find novel solutions that help people on a daily basis.<br />She studied an expert degree about AI in the UNED and the Data Science and Machine Learning expert degree at UPNA because she believes that integrating AI into engineering solutions can lead to great outcomes. She studied the Master in Computer Engineering at UPNA as well.<br />She worked as a full stack developer at Openbravo. After that she worked as a project assistant at Upna, creating a Random Forest algorithm capable of detecting crop types from raster images. After that, she started working at Tracasa as a consultant for the European Environment Agency. This job gave her the chance to go to Copenhagen during 6 months to work at the European Environment Agency as a software consultant.<br />She has started working as a teacher at Upna and as a researcher in the UpnaLAB group.</p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/naroa-iriarte-385b5b34/",
+      "scholar": "https://scholar.google.es/citations?user=FKP4olsAAAAJ",
+      "orcid": "https://orcid.org/0000-0002-7672-5353",
+      "upna": "http://www.unavarra.es/pdi/?uid=811550",
+      "twitter": "",
+      "github": "",
+      "email": "naroa.iriarte@unavarra.es"
+    }
+  },
+  {
+    "slug": "oihana-elizagoyen",
+    "name": "Oihana Elizagoyen",
+    "role": "PhD Student",
+    "category": "Active",
+    "subCategory": "PhD Student",
+    "photo": "/assets/images/people/oihana-elizagoyen.webp",
+    "bio": "<p class=\"mb-4\"><span data-teams=\"true\">Bachelor's degree in Computer Science by the Public University of Navarra (2023) and Master's degree in Computer Science by the same university (2025). She also has work experience acquired in a company specialising in artificial vision. She currently works as a project collaborator at Upnalab, within the framework of the Intevol project.</span></p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/oihana-elizagoyen-ugalde",
+      "scholar": "https://scholar.google.es/citations?hl=en&user=Er9SbVEAAAAJ",
+      "orcid": "https://orcid.org/0009-0007-2734-1250",
+      "upna": "https://www.unavarra.es/buscar?dondeBuscar=personas&page=1&persid=813553",
+      "twitter": "",
+      "github": "",
+      "email": "oihana.elizagoyen@unavarra.es"
+    }
+  },
+  {
+    "slug": "oscar-ardaiz",
+    "name": "Oscar Ardaiz",
+    "role": "Staff",
+    "category": "Active",
+    "subCategory": "Staff",
+    "photo": "/assets/images/people/oscar-ardaiz.webp",
+    "bio": "<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">He is a Doctor from the Polytechnic University of Catalonia. He has participated in European and national projects in the field of computer technologies.</span></i></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">His research is focused on computer systems to support</span></i><b><i> individual, group and network creativity.</i></b></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">He develops projects of computer applications in different supports: </span></i><b><i>mobile, web, 3D-printing, natural interfaces, multi-touch, virtual reality and augmented reality</i></b><i><span style=\"font-weight: 400;\">.</span></i></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">He directs Phds in the field of interactive and collaborative technologies. He comments his work in the blog: </span></i><a href=\"http://beyondaround.wordpress.com/\"><i><span style=\"font-weight: 400;\">http://beyondaround.wordpress.com</span></i></a></p>",
+    "links": {
+      "website": "http://beyondaround.wordpress.com",
+      "linkedin": "https://es.linkedin.com/in/oscarardaiz",
+      "scholar": "https://scholar.google.es/citations?user=8S25FRgAAAAJ",
+      "orcid": "https://orcid.org/0000-0002-2740-1109",
+      "upna": "https://www.unavarra.es/pdi?uid=4340",
+      "twitter": "https://twitter.com/oscarardaiz",
+      "github": "",
+      "email": "oscar.ardaiz@unavarra.es"
+    }
+  },
+  {
+    "slug": "rafael-morales",
+    "name": "Rafael Morales",
+    "role": "Postdoc",
+    "category": "Visitors",
+    "subCategory": "Visitor",
+    "photo": "/assets/images/people/rafael-morales.webp",
+    "bio": "<p class=\"mb-4\">I am passionate about emerging technologies, haptics and acoustic levitators. I have worked in two H2020 FET projects (Levitate and Touchless). My research in Human-Computer Interaction (HCI) is at the intersection of tangible user interfaces, wearables, and novel ultrasonic devices (designing acoustic levitators and haptics). Currently, I am creating interactive systems using ultrasound transducers and gesture-based interaction techniques to enable powerful applications in smart environments. My projects aim to design, build and evaluate radically new future technologies to overcome societal challenges.</p>",
+    "links": {
+      "website": "https://rafamg10.github.io/",
+      "linkedin": "https://www.linkedin.com/in/rafael-morales-gonzlez/",
+      "scholar": "https://scholar.google.com/citations?user=ejb9K1MAAAAJ",
+      "orcid": "https://orcid.org/0000-0003-0543-0985",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "sebastian-marichal",
+    "name": "Sebastian Marichal",
+    "role": "Postdoc",
+    "category": "Alumni",
+    "subCategory": "Previous Member",
+    "photo": "/assets/images/people/sebastian-marichal.webp",
+    "bio": "<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">Sebastián is a Computer Engineer graduated in the University of the Republic (Uruguay). He holds a master in Cognitive Systems and Interactive Media and a PhD in Computer Science from Universitat Pompeu Fabra (Barcelona, Spain). During his PhD he worked in the design of </span></i><b><i>tangible systems</i></b><i><span style=\"font-weight: 400;\"> for </span></i><b><i>children</i></b><i><span style=\"font-weight: 400;\"> with and without </span></i><b><i>visual impairments</i></b><i><span style=\"font-weight: 400;\">, specifically for mathematics </span></i><b><i>learning</i></b><i><span style=\"font-weight: 400;\">. He is currently working as a postdoc in the Public University of Navarra, where he is researching</span></i><b><i> manipulation techniques and haptic feedback in VR</i></b><i><span style=\"font-weight: 400;\">.</span></i></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">He has experience and enjoys working within </span></i><b><i>interdisciplinary groups</i></b><i><span style=\"font-weight: 400;\">. He has conducted his investigation following a </span></i><b><i>desgin-based research</i></b><i><span style=\"font-weight: 400;\">, developing prototypes and conducting user studies. He bases his research in “people-centered” methodologies such as </span></i><b><i>User-Centered and</i></b> <b><i>Participatory Design</i></b><i><span style=\"font-weight: 400;\">.</span></i></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">He also has more than </span></i><b><i>10 years of hands-on professional experience</i></b><i><span style=\"font-weight: 400;\"> working under several roles within development teams such as:</span></i><b><i> Full-stack developer</i></b><i><span style=\"font-weight: 400;\"> (JAVA 2EE expertise), </span></i><b><i>security software researcher</i></b><i><span style=\"font-weight: 400;\"> and </span></i><b><i>team leader/development coordinator</i></b><i><span style=\"font-weight: 400;\">.</span></i></p>\n<p class=\"mb-4\"><b><i>Specialities</i></b><i><span style=\"font-weight: 400;\">: HCI/UX design – User Centered Design – Multimodal Systems – Tangible Interaction – Full Stack Developer – Smart Environments – IOT – Android – Web – Java </span></i></p>\n<p class=\"mb-4\"><b><i>Recent Projects:</i></b></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">CETA:</span></i><a href=\"https://www.ceta.edu.uy/\"><i><span style=\"font-weight: 400;\"> https://www.ceta.edu.uy/</span></i></a></p>\n<p class=\"mb-4\"><i><span style=\"font-weight: 400;\">LETSMath:</span></i><a href=\"https://dl.acm.org/doi/abs/10.1145/3236112.3236157\"><i><span style=\"font-weight: 400;\"> https://dl.acm.org/doi/abs/10.1145/3236112.3236157</span></i></a></p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://es.linkedin.com/in/smarichal",
+      "scholar": "https://scholar.google.es/citations?user=CxAGWEQAAAAJ",
+      "orcid": "https://orcid.org/0000-0001-5067-049X",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "soma-mochizuki",
+    "name": "Soma Mochizuki",
+    "role": "Student",
+    "category": "Visitors",
+    "subCategory": "Visitor",
+    "photo": "/assets/images/people/soma-mochizuki.webp",
+    "bio": "<p class=\"mb-4\">Work in progress</p>",
+    "links": {
+      "website": "",
+      "linkedin": "",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "sonia-elizondo",
+    "name": "Sonia Elizondo",
+    "role": "PhD",
+    "category": "Alumni",
+    "subCategory": "Previous Member",
+    "photo": "/assets/images/people/sonia-elizondo.webp",
+    "bio": "<p class=\"mb-4\">Sonia is a PhD student focused on the development of Machine Learning models inspired in neurocognitive science.<br />She studied Computer Engineering with a specialization in Computing and Intelligent Systems (2019) and a master’s degree in Computer Engineering (2021) at Universidad Pública de Navarra (Spain). She finished her degree at Politecnico di Torino (Italy) with an Erasmus+ Scholarship.<br />During her studies, she collaborated with the research group GIARA in applications of the gradient algorithm for image border detection (2017-2018) and new techniques for data clustering (2019-2020). She also worked as project assistant for UpnaLab research group (2020) simulating tomographic displays.<br />Aware of the gender gap in technical fields such as her own, she is a scientific communicator and STEM mentor. Currently, she is engaged in “Cátedra Mujer, Ciencia y Tecnología” leading projects to inspire and promote scientific careers among high-school students. She is a staff member of Navarra LAN Party, an annual event for tech lovers.</p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://es.linkedin.com/in/sonia-elizondo-martnez",
+      "scholar": "https://scholar.google.com/citations?user=cOuJvkUAAAAJ",
+      "orcid": "https://orcid.org/0000-0002-4905-0776",
+      "upna": "http://www.unavarra.es/pdi?uid=812014",
+      "twitter": "",
+      "github": "",
+      "email": "sonia.elizondo@unavarra.es"
+    }
+  },
+  {
+    "slug": "takahito-murakami",
+    "name": "Takahito Murakami",
+    "role": "Student",
+    "category": "Visitors",
+    "subCategory": "Visitor",
+    "photo": "/assets/images/people/takahito-murakami.webp",
+    "bio": "<p class=\"mb-4\"><span class=\"ui-provider bxx bxy bxz bya byb byc byd bye byf byg byh byi byj byk byl bym byn byo byp byq byr bys byt byu byv byw byx byy byz bza bzb bzc bzd bze bzf\" dir=\"ltr\">Born in 1997, he is a master's student at the University of Tsukuba, studying Informatics in collaboration with AIST. His research interests include human-computer interaction (HCI), with a focus on bio-mimicry, product design, and digital fabrication. His project, \"Kuchibashi,\" won 1st prize in the ACM Student Research Competition. Currently, his research focuses on the crossover of bio-inspired product design, digital fabrication, acoustic holography, and AI-aided design.</span></p>",
+    "links": {
+      "website": "https://kamiwork.com",
+      "linkedin": "https://www.linkedin.com/in/murataka9/",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "https://x.com/murataka9",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "unai-fernandez",
+    "name": "Unai Fernandez",
+    "role": "PhD Student",
+    "category": "Active",
+    "subCategory": "PhD Student",
+    "photo": "/assets/images/people/unai-fernandez.webp",
+    "bio": "<p class=\"mb-4\"><span class=\"ui-provider cph cpi c d e f g h i j k l m n o p q r s t cpj cpk w x y z ab ac ae af ag ah ai aj ak\" dir=\"ltr\">Appasionate about drawing, carpentry and wood burning. Currently doing a PhD about interaction techniques in volumetric displays. His strongest points are programming and graphic computation mathematics.</span></p>",
+    "links": {
+      "website": "",
+      "linkedin": "",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "http://twitter.com/sdsauron",
+      "github": "",
+      "email": "unai.fernandez@unavarra.es"
+    }
+  },
+  {
+    "slug": "urki-aristu",
+    "name": "Urki Aristu",
+    "role": "Project Collaborator",
+    "category": "Active",
+    "subCategory": "Project Collaborator",
+    "photo": "/assets/images/people/urki-aristu.webp",
+    "bio": "<p class=\"mb-4\">Bachelor's degree in Computer Science (2024) and Master's degree in Computer Science (2026) from the Public University of Navarra. He has worked at a company specialising in the development of web apps, and also has practical experience with WebXR and VR technologies.</p>",
+    "links": {
+      "website": "",
+      "linkedin": "https://www.linkedin.com/in/urki-aristu-viela-6465162b6",
+      "scholar": "",
+      "orcid": "https://orcid.org/0009-0000-5121-228X",
+      "upna": "",
+      "twitter": "",
+      "github": "https://github.com/aristu138167",
+      "email": "urki.aristu@unavarra.es"
+    }
+  },
+  {
+    "slug": "stefan-donkov",
+    "name": "Violeta Donkova",
+    "role": "PhD Student",
+    "category": "Active",
+    "subCategory": "PhD Student",
+    "photo": "/assets/images/people/stefan-donkov.webp",
+    "bio": "<p class=\"mb-4\">Passionate about e-sports. She obtained a Bachelor’s in Computer Engineering at the Public University of Navarra. Currently he is pursuing a Master’s Degree in Computer Science.<br />Her research is focused on magnetic field actuation and its application in board game automation.<br />Apart from the typical Computer Science expertise, she has experience with microcontrollers, PCB design and electronics.</p>",
+    "links": {
+      "website": "",
+      "linkedin": "",
+      "scholar": "",
+      "orcid": "",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": ""
+    }
+  },
+  {
+    "slug": "waseem-hassan",
+    "name": "Waseem Hassan",
+    "role": "Postdoc",
+    "category": "Active",
+    "subCategory": "Staff",
+    "photo": "/assets/images/people/waseem-hassan.webp",
+    "bio": "<p class=\"mb-4\">My research in haptics spans three dimensions of the field: the development of new haptic interfaces, the creation of content for these devices, and the exploration of the psychophysical aspects of how users perceive this content. Haptic interfaces form the backbone of haptic technology, providing the means for interaction. However, without high quality, diverse haptic content created using machine learning and deep learning, these interfaces would have limited applications. Psychophysical research ensures that both the interfaces and the content they deliver are aligned with human sensory capabilities, making the haptic experiences realistic and satisfying.</p>",
+    "links": {
+      "website": "https://hassanwaseem.github.io/",
+      "linkedin": "https://www.linkedin.com/in/waseem-hassan-b3b4b3142/",
+      "scholar": "https://scholar.google.com/citations?user=zcelW5kAAAAJ",
+      "orcid": "https://orcid.org/0000-0003-3922-5648",
+      "upna": "",
+      "twitter": "",
+      "github": "",
+      "email": ""
+    }
+  }
+]

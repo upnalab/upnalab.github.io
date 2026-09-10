@@ -1,0 +1,75 @@
+{
+  "about": {
+    "headline": "UpnaLab: Future Interactive Devices",
+    "subheadline": "We are a research group based on the Public University of Navarre (Spain, Pamplona). We combine cutting-edge technology to create the most innovative interactive devices.",
+    "expertise": [
+      "Acoustic Levitation and Directional Audio",
+      "Virtual and Augmented Reality",
+      "Volumetric Displays",
+      "Sensors for HCI: Microwave, Infrared and other novel modalities",
+      "Creativity & Fabrication Technologies"
+    ],
+    "values": [
+      {
+        "title": "Curiosity Driven",
+        "description": "Deep inside, curiosity is the main drive. Our reason for doing research is to see what nobody has seen before."
+      },
+      {
+        "title": "Pragmatic Multidisciplinarity",
+        "description": "Computer Science, Chemistry, Electronics, Optics or Acoustics are all tools that you need to exploit to realize the most innovative ideas."
+      },
+      {
+        "title": "Demos and Open Science",
+        "description": "We share how to build new devices through videos, open instructions and hands-on demonstrations."
+      }
+    ],
+    "sponsors": [
+      {
+        "title": "Project InteVol – Horizon Europe ERC Starting Grant 101042702 – 2022-2027",
+        "logo": "/assets/images/sponsors/erc.webp"
+      },
+      {
+        "title": "Project TOUCHLESS – Horizon 2020 FET proact-2020-101017746 – 2021-2024",
+        "logo": "/assets/images/sponsors/touchless.webp"
+      },
+      {
+        "title": "Transferencia Gobierno de Navarra, “Hologramas Táctiles para mejora de la instrumentación quirúrgica en quirófanos” 2019-2020",
+        "logo": "/assets/images/sponsors/navarra.webp"
+      },
+      {
+        "title": "Proyectos Culturales, “Movidos por el Sonido”, Universidad Pública de Navarra. 2019",
+        "logo": "/assets/images/sponsors/upna.webp"
+      },
+      {
+        "title": "Jóvenes Investigadores, “Hacia el Ultimate Display con Ultrasonidos” 2019",
+        "logo": "/assets/images/sponsors/jovenes.webp"
+      }
+    ]
+  },
+  "diy": [
+    {
+      "title": "Instructables",
+      "url": "https://www.instructables.com/member/UpnaLab/",
+      "image": "/assets/images/diy/instructables.webp",
+      "description": "Check our detailed Instructables and guided tutorials to build your own cutting-edge devices. Acoustic Levitators, Ultrasonic Phased Arrays, and more."
+    },
+    {
+      "title": "YouTube Tutorials",
+      "url": "https://www.youtube.com/@UpnaLab",
+      "image": "/assets/images/diy/youtube.webp",
+      "description": "From basic electronics and soldering, to how to build your own Ultrasonic Levitators and Phased arrays. Follow narrated video tutorials at your own pace on our YouTube channel."
+    },
+    {
+      "title": "Open Source GitHub",
+      "url": "https://github.com/upnalab",
+      "image": "/assets/images/diy/github.webp",
+      "description": "Find and keep track of the code of our Open Source projects, fork your own versions and shape the future of software, together!"
+    },
+    {
+      "title": "UPNA's OpenSpace",
+      "url": "https://view.genial.ly/629a5ed84e5e8e0018ebd48b",
+      "image": "/assets/images/diy/openspace.webp",
+      "description": "A service aimed at fostering activity-based learning, where the university community can create and develop projects, share knowledge, and explore new technologies. 3D printers, laser cutters, materials for electronics and more at your disposal in the UPNA's library building."
+    }
+  ]
+}
