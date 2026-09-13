@@ -1,12 +1,12 @@
 {
   "about": {
     "headline": "UpnaLab: Future Interactive Devices",
-    "subheadline": "We are a research group based on the Public University of Navarre (Spain, Pamplona). We combine cutting-edge technology to create the most innovative interactive devices.",
+    "subheadline": "We are a research group based on the Public University of Navarre (Spain, Pamplona). We combine computer science, chemistry, electronics, optics and/or acoustics with technology to create novel interactive devices.",
     "expertise": [
       "Acoustic Levitation and Directional Audio",
       "Virtual and Augmented Reality",
       "Volumetric Displays",
-      "Sensors for HCI: Microwave, Infrared and other novel modalities",
+      "Sensors and actuator for HCI and Haptics",
       "Creativity & Fabrication Technologies"
     ],
     "values": [
@@ -51,25 +51,25 @@
       "title": "Instructables",
       "url": "https://www.instructables.com/member/UpnaLab/",
       "image": "/assets/images/diy/instructables.webp",
-      "description": "Check our detailed Instructables and guided tutorials to build your own cutting-edge devices. Acoustic Levitators, Ultrasonic Phased Arrays, and more."
+      "description": "Check our Instructables and guided tutorials to build your own devices. Acoustic Levitators, Ultrasonic Phased Arrays, Volumetric Displays, and more."
     },
     {
       "title": "YouTube Tutorials",
       "url": "https://www.youtube.com/@UpnaLab",
       "image": "/assets/images/diy/youtube.webp",
-      "description": "From basic electronics and soldering, to how to build your own Ultrasonic Levitators and Phased arrays. Follow narrated video tutorials at your own pace on our YouTube channel."
+      "description": "From basic electronics and soldering, to how to build your own Ultrasonic Levitators and Phased arrays. Follow video tutorials at your own pace on our YouTube channel."
     },
     {
       "title": "Open Source GitHub",
       "url": "https://github.com/upnalab",
       "image": "/assets/images/diy/github.webp",
-      "description": "Find and keep track of the code of our Open Source projects, fork your own versions and shape the future of software, together!"
+      "description": "Find and keep track of the code of our Open Source projects or fork your own versions."
     },
     {
       "title": "UPNA's OpenSpace",
       "url": "https://view.genial.ly/629a5ed84e5e8e0018ebd48b",
       "image": "/assets/images/diy/openspace.webp",
-      "description": "A service aimed at fostering activity-based learning, where the university community can create and develop projects, share knowledge, and explore new technologies. 3D printers, laser cutters, materials for electronics and more at your disposal in the UPNA's library building."
+      "description": "A service aimed at fostering activity-based learning, where the Public University of Navarra (UPNA) community can create and develop projects, share knowledge, and explore new technologies. 3D printers, laser cutters, materials for electronics and more at your disposal in the UPNA's library building."
     }
   ]
 }
