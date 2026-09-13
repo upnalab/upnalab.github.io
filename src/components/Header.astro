@@ -24,8 +24,6 @@ function isActive(href: string) {
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
-      
-      <!-- Brand Logo -->
       <a href={url('/')} class="flex items-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-lg p-1">
         <img 
           src={url('/assets/images/site/upnalab_header_logo.png')} 
@@ -34,7 +32,6 @@ function isActive(href: string) {
         />
       </a>
 
-      <!-- Desktop Navigation Menu -->
       <nav class="hidden md:flex items-center gap-1 lg:gap-2">
         {navItems.map(item => {
           const active = isActive(item.href);
@@ -53,9 +50,7 @@ function isActive(href: string) {
         })}
       </nav>
 
-      <!-- Social and External Links -->
       <div class="hidden sm:flex items-center gap-3 pl-2 border-l border-slate-200">
-        <!-- Twitter / X -->
         <a 
           href="https://twitter.com/upnalab" 
           target="_blank" 
@@ -68,7 +63,6 @@ function isActive(href: string) {
           </svg>
         </a>
 
-        <!-- YouTube -->
         <a 
           href="https://www.youtube.com/@UpnaLab" 
           target="_blank" 
@@ -81,7 +75,6 @@ function isActive(href: string) {
           </svg>
         </a>
 
-        <!-- GitHub -->
         <a 
           href="https://github.com/upnalab" 
           target="_blank" 
@@ -95,7 +88,6 @@ function isActive(href: string) {
         </a>
       </div>
 
-      <!-- Mobile Hamburger Button -->
       <div class="flex items-center md:hidden">
         <button
           type="button"
@@ -115,7 +107,6 @@ function isActive(href: string) {
     </div>
   </div>
 
-  <!-- Mobile Dropdown Menu -->
   <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 shadow-lg">
     {navItems.map(item => {
       const active = isActive(item.href);

@@ -8,7 +8,6 @@ const { bibtex, id = "bibtex-block" } = Astro.props;
 ---
 
 <div class="relative group rounded-xl bg-slate-900 text-slate-100 overflow-hidden border border-slate-800 shadow-md">
-  <!-- Top bar with label and copy button -->
   <div class="flex items-center justify-between px-4 py-2.5 bg-slate-800/80 border-b border-slate-700/60">
     <div class="flex items-center gap-2">
       <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
@@ -17,7 +16,6 @@ const { bibtex, id = "bibtex-block" } = Astro.props;
       <span class="ml-2 text-xs font-mono font-medium text-slate-400">BibTeX Citation</span>
     </div>
 
-    <!-- Copy Button -->
     <button
       type="button"
       class="copy-bibtex-btn inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md bg-slate-700 hover:bg-brand-600 text-slate-200 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
@@ -34,7 +32,6 @@ const { bibtex, id = "bibtex-block" } = Astro.props;
     </button>
   </div>
 
-  <!-- Code content -->
   <pre class="p-4 overflow-x-auto text-xs sm:text-sm font-mono leading-relaxed text-slate-200 selection:bg-brand-600 selection:text-white"><code>{bibtex}</code></pre>
 </div>
 

@@ -9,16 +9,13 @@ interface Props {
 const { people } = Astro.props;
 ---
 
-<!-- Native HTML5 Dialogs for each person -->
 {people.map(person => (
   <dialog
     id={`bio-modal-${person.slug}`}
     class="bio-dialog fixed inset-0 m-auto w-[92%] max-w-2xl max-h-[88vh] p-0 rounded-2xl bg-white shadow-2xl backdrop:bg-slate-900/60 backdrop:backdrop-blur-xs border border-slate-200 overflow-hidden"
   >
-    <!-- Modal Header -->
     <div class="relative bg-slate-50/90 px-6 py-6 border-b border-slate-200">
       <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5">
-        <!-- Bigger Profile Picture -->
         <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden bg-slate-100 ring-4 ring-white shadow-md shrink-0 border border-slate-200/80">
           <img
             src={url(person.photo)}
@@ -35,7 +32,6 @@ const { people } = Astro.props;
             {person.role}
           </p>
 
-          <!-- Academic & Social Badges / Links in Modal -->
           <div class="flex items-center justify-center sm:justify-start flex-wrap gap-2 mt-4">
             {person.links.scholar && (
               <a 
@@ -137,7 +133,6 @@ const { people } = Astro.props;
         </div>
       </div>
 
-      <!-- Close Button -->
       <button
         type="button"
         class="close-bio-btn absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 transition-colors"
@@ -150,7 +145,6 @@ const { people } = Astro.props;
       </button>
     </div>
 
-    <!-- Modal Body -->
     <div class="p-6 sm:p-8 overflow-y-auto max-h-[calc(88vh-220px)] prose prose-slate max-w-none text-sm leading-relaxed">
       {person.bio && person.bio.trim().length > 10 ? (
         <div set:html={person.bio} />
@@ -159,7 +153,6 @@ const { people } = Astro.props;
       )}
     </div>
 
-    <!-- Modal Footer with links -->
     <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
       <span class="text-xs text-slate-500 font-medium">UPNALAB · Universidad Pública de Navarra</span>
       <button

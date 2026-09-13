@@ -38,10 +38,7 @@ const hasVideo = Boolean(project.videoPreview);
   data-authors={project.authors.join(' ').toLowerCase()}
   data-abstract={project.abstract.toLowerCase()}
 >
-  <!-- Media Preview (Poster Image + Hover-to-Play Video) -->
   <a href={projectUrl} class="block relative aspect-[4/3] w-full bg-slate-950 overflow-hidden" tabindex="-1" aria-hidden="true">
-    
-    <!-- Static Poster Image -->
     <img
       src={url(project.thumbnail)}
       alt={project.title}
@@ -50,7 +47,6 @@ const hasVideo = Boolean(project.videoPreview);
       class="project-thumb absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
     />
 
-    <!-- Hover-to-play Video Overlay -->
     {hasVideo && (
       <video
         data-src={url(project.videoPreview!)}
@@ -62,15 +58,12 @@ const hasVideo = Boolean(project.videoPreview);
       />
     )}
 
-    <!-- Year Badge -->
     <div class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-sm text-xs font-semibold text-white tracking-wide shadow-sm">
       {project.year}
     </div>
   </a>
 
-  <!-- Content & Metadata -->
   <div class="flex flex-col p-4 sm:p-5">
-    <!-- Tags pills -->
     <div class="flex flex-wrap gap-1.5 mb-2.5">
       {project.tags.slice(0, 3).map(tag => (
         <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-brand-50 text-brand-700 border border-brand-100">
@@ -84,7 +77,6 @@ const hasVideo = Boolean(project.videoPreview);
       )}
     </div>
 
-    <!-- Title -->
     <h3 class="font-bold text-base sm:text-lg leading-snug text-slate-900 group-hover:text-brand-600 transition-colors">
       <a href={projectUrl} class="focus:outline-none hover:underline">
         {project.title}

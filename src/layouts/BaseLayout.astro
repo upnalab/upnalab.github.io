@@ -86,17 +86,14 @@ const organizationJsonLd = {
     <link rel="shortcut icon" href={url('/favicon.ico')} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords || "UPNALAB, UPNA, interactive devices, acoustic levitation, volumetric displays, mid-air haptics, tangible interaction, HCI, computer science, physics, electronics, mechanics, chemistry"} />
     <meta name="theme-color" content="#0f172a" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:site_name" content="UPNALAB" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content={article ? "article" : "website"} />
@@ -107,7 +104,6 @@ const organizationJsonLd = {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:site" content="@upnalab" />
     <meta property="twitter:creator" content="@upnalab" />
@@ -117,7 +113,6 @@ const organizationJsonLd = {
     <meta property="twitter:image" content={ogImageUrl} />
     <meta property="twitter:image:alt" content={title} />
 
-    <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
     {jsonLd && (
       Array.isArray(jsonLd) ? (
@@ -129,7 +124,6 @@ const organizationJsonLd = {
       )
     )}
 
-    <!-- Google Scholar & Academic Metadata -->
     {citation && (
       <>
         {citation.title && <meta name="citation_title" content={citation.title} />}
@@ -143,10 +137,8 @@ const organizationJsonLd = {
       </>
     )}
 
-    <!-- XML Sitemap -->
     <link rel="sitemap" href={url('/sitemap-index.xml')} />
 
-    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />

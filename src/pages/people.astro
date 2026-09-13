@@ -17,7 +17,6 @@ const alumni = typedPeople.filter(p => p.category === 'Alumni');
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     
-    <!-- Active Team Section -->
     <section class="mb-16">
       <div class="mb-8 pb-3 border-b border-slate-200">
         <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
@@ -32,7 +31,6 @@ const alumni = typedPeople.filter(p => p.category === 'Alumni');
       </div>
     </section>
 
-    <!-- Visitors Section -->
     {visitors.length > 0 && (
       <section class="mb-16">
         <div class="mb-8 pb-3 border-b border-slate-200">
@@ -49,7 +47,6 @@ const alumni = typedPeople.filter(p => p.category === 'Alumni');
       </section>
     )}
 
-    <!-- Alumni Section -->
     {alumni.length > 0 && (
       <section>
         <div class="mb-8 pb-3 border-b border-slate-200">
@@ -68,6 +65,5 @@ const alumni = typedPeople.filter(p => p.category === 'Alumni');
 
   </div>
 
-  <!-- Person Bio Modals -->
   <PersonModal people={typedPeople} />
 </BaseLayout>
