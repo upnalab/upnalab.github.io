@@ -80,6 +80,6 @@
   },
   "analytics": {
     "_comment": "Cookie-less analytics (no consent banner needed). Create a free site at https://www.goatcounter.com and put its code (the <code> in <code>.goatcounter.com) below. Leave empty to disable analytics.",
-    "goatcounter": ""
+    "goatcounter": "upnalab"
   }
 }
