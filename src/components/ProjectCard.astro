@@ -1,24 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import { url } from '../utils/url';
-
-export interface Project {
-  id: string;
-  slug: string;
-  title: string;
-  date: string;
-  year: number;
-  category: string;
-  tags: string[];
-  thumbnail: string;
-  videoPreview: string | null;
-  paperVideo?: string;
-  abstract: string;
-  publicationUrl?: string;
-  doi?: string | null;
-  bibtex?: string;
-  apa?: string;
-  authors: string[];
-}
+import { getImage } from '../utils/images';
+import type { Project } from '../utils/data';
 
 interface Props {
   project: Project;
@@ -27,11 +11,11 @@ interface Props {
 const { project } = Astro.props;
 const projectUrl = url(`/project/${project.slug}/`);
 const hasVideo = Boolean(project.videoPreview);
+const thumbnail = getImage(project.thumbnail);
 ---
 
-<article 
-  class="project-card group relative flex flex-col bg-white rounded-2xl border border-slate-200/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
-  style="box-shadow: 0px 2px 10px 0px rgba(12, 113, 195, 0.44);"
+<article
+  class="project-card group relative flex flex-col bg-white rounded-2xl border border-slate-200/40 shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 overflow-hidden"
   data-tags={JSON.stringify(project.tags.map(t => t.toLowerCase()))}
   data-category={project.category.toLowerCase()}
   data-title={project.title.toLowerCase()}
@@ -39,9 +23,11 @@ const hasVideo = Boolean(project.videoPreview);
   data-abstract={project.abstract.toLowerCase()}
 >
   <a href={projectUrl} class="block relative aspect-[4/3] w-full bg-slate-950 overflow-hidden" tabindex="-1" aria-hidden="true">
-    <img
-      src={url(project.thumbnail)}
-      alt={project.title}
+    <Image
+      src={thumbnail}
+      alt=""
+      widths={[400, 640, 800]}
+      sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
       loading="lazy"
       decoding="async"
       class="project-thumb absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -244,13 +230,3 @@ const hasVideo = Boolean(project.videoPreview);
   initVideoAutoplay();
   document.addEventListener('astro:page-load', initVideoAutoplay);
 </script>
-
-<style>
-  .project-card {
-    box-shadow: 0px 2px 10px 0px rgba(12, 113, 195, 0.44);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .project-card:hover {
-    box-shadow: 0px 4px 18px 0px rgba(12, 113, 195, 0.60) !important;
-  }
-</style>

@@ -7,18 +7,22 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "extract": "node scripts/extract-wordpress.mjs",
-    "test": "node scripts/verify-build.js"
+    "check": "astro check",
+    "test": "node scripts/verify-build.js",
+    "og": "node scripts/make-og-image.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
-    "@astrojs/tailwind": "^5.1.5",
-    "@tailwindcss/typography": "^0.5.16",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^5.4.1",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "fast-xml-parser": "^4.5.3",
-    "sharp": "^0.33.5"
+    "@astrojs/check": "^0.9.10",
+    "sharp": "^0.33.5",
+    "typescript": "^5.9.3"
   }
 }

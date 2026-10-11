@@ -1,135 +1,51 @@
 ---
+import { Image } from 'astro:assets';
 import { url } from '../utils/url';
-import type { Person } from './PersonCard.astro';
+import { getImage } from '../utils/images';
+import { projectsOfPerson, type Person, type Project } from '../utils/data';
+import Icon from './Icon.astro';
+import PersonLinks from './PersonLinks.astro';
 
 interface Props {
   people: Person[];
+  projects: Project[];
 }
 
-const { people } = Astro.props;
+const { people, projects } = Astro.props;
 ---
 
-{people.map(person => (
+{people.map(person => {
+  const personProjects = projectsOfPerson(person, projects);
+  const hasBio = person.bio && person.bio.trim().length > 10;
+  return (
   <dialog
     id={`bio-modal-${person.slug}`}
     class="bio-dialog fixed inset-0 m-auto w-[92%] max-w-2xl max-h-[88vh] p-0 rounded-2xl bg-white shadow-2xl backdrop:bg-slate-900/60 backdrop:backdrop-blur-xs border border-slate-200 overflow-hidden"
+    aria-labelledby={`bio-title-${person.slug}`}
   >
     <div class="relative bg-slate-50/90 px-6 py-6 border-b border-slate-200">
       <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5">
         <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden bg-slate-100 ring-4 ring-white shadow-md shrink-0 border border-slate-200/80">
-          <img
-            src={url(person.photo)}
+          <Image
+            src={getImage(person.photo)}
             alt={person.name}
+            width={128}
+            height={128}
+            densities={[1, 2]}
+            loading="lazy"
             class="w-full h-full object-cover object-center"
           />
         </div>
 
         <div class="flex-1 min-w-0 pr-0 sm:pr-8">
-          <h3 class="text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
+          <h3 id={`bio-title-${person.slug}`} class="text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
             {person.name}
           </h3>
           <p class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-brand-600 mt-1">
             {person.role}
           </p>
 
-          <div class="flex items-center justify-center sm:justify-start flex-wrap gap-2 mt-4">
-            {person.links.scholar && (
-              <a 
-                href={person.links.scholar} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="Google Scholar Profile"
-                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-brand-50 text-slate-700 hover:text-brand-700 text-xs font-medium border border-slate-200/80 shadow-2xs hover:border-brand-300 transition-colors"
-              >
-                <img src={url('/assets/icons/google_scholar_icon.svg')} alt="" class="w-3.5 h-3.5" />
-                <span>Scholar</span>
-              </a>
-            )}
-
-            {person.links.orcid && (
-              <a 
-                href={person.links.orcid} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="ORCID Record"
-                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 text-xs font-medium border border-slate-200/80 shadow-2xs hover:border-emerald-300 transition-colors"
-              >
-                <img src={url('/assets/icons/ORCID_iD.svg')} alt="" class="w-3.5 h-3.5" />
-                <span>ORCID</span>
-              </a>
-            )}
-
-            {person.links.upna && person.links.upna.startsWith('http') && (
-              <a 
-                href={person.links.upna} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="Institutional Academic Profile"
-                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-red-50 text-slate-700 hover:text-red-700 text-xs font-medium border border-slate-200/80 shadow-2xs hover:border-red-300 transition-colors"
-              >
-                <img src={url('/assets/icons/profile.svg')} alt="" class="w-3.5 h-3.5" />
-                <span>UPNA Profile</span>
-              </a>
-            )}
-
-            {person.links.linkedin && (
-              <a 
-                href={person.links.linkedin} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="LinkedIn Profile"
-                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-sky-50 text-slate-700 hover:text-sky-700 text-xs font-medium border border-slate-200/80 shadow-2xs hover:border-sky-300 transition-colors"
-              >
-                <svg class="w-3.5 h-3.5 fill-current text-[#0A66C2]" viewBox="0 0 24 24">
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 0 0-1.64 1.64 1.64 1.64 0 0 0 1.64 1.64 1.64 1.64 0 0 0 1.64-1.64 1.64 1.64 0 0 0-1.64-1.64Z"/>
-                </svg>
-                <span>LinkedIn</span>
-              </a>
-            )}
-
-            {person.links.github && (
-              <a 
-                href={person.links.github} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="GitHub Profile"
-                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-medium border border-slate-200/80 shadow-2xs hover:border-slate-400 transition-colors"
-              >
-                <svg class="w-3.5 h-3.5 fill-current text-slate-800" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-                </svg>
-                <span>GitHub</span>
-              </a>
-            )}
-
-            {person.links.website && (
-              <a 
-                href={person.links.website} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="Personal Website"
-                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-brand-50 text-slate-700 hover:text-brand-700 text-xs font-medium border border-slate-200/80 shadow-2xs hover:border-brand-300 transition-colors"
-              >
-                <svg class="w-3.5 h-3.5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-                <span>Website</span>
-              </a>
-            )}
-
-            {person.links.email && (
-              <a 
-                href={`mailto:${person.links.email}`} 
-                title={`Email ${person.name}`}
-                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 text-xs font-medium border border-slate-200/80 shadow-2xs hover:border-amber-300 transition-colors"
-              >
-                <svg class="w-3.5 h-3.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span>Email</span>
-              </a>
-            )}
-          </div>
+          <PersonLinks person={person} variant="pills" class="justify-center sm:justify-start mt-4" />
         </div>
       </div>
 
@@ -139,17 +55,33 @@ const { people } = Astro.props;
         data-close-target={`bio-modal-${person.slug}`}
         aria-label="Close dialog"
       >
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <Icon name="close" class="w-5 h-5" />
       </button>
     </div>
 
-    <div class="p-6 sm:p-8 overflow-y-auto max-h-[calc(88vh-220px)] prose prose-slate max-w-none text-sm leading-relaxed">
-      {person.bio && person.bio.trim().length > 10 ? (
-        <div set:html={person.bio} />
+    <div class="p-6 sm:p-8 overflow-y-auto max-h-[calc(88vh-220px)] text-sm leading-relaxed">
+      {hasBio ? (
+        <div class="prose prose-slate max-w-none" set:html={person.bio} />
       ) : (
         <p class="text-slate-500 italic">No detailed biography available.</p>
+      )}
+
+      {personProjects.length > 0 && (
+        <section class="mt-6 pt-5 border-t border-slate-200">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+            Projects at UPNALAB ({personProjects.length})
+          </h4>
+          <ul class="space-y-1.5">
+            {personProjects.map(pr => (
+              <li class="flex items-baseline gap-2">
+                <span class="text-xs font-mono text-slate-400 shrink-0">{pr.year}</span>
+                <a href={url(`/project/${pr.slug}/`)} class="text-brand-700 hover:text-brand-800 hover:underline font-medium">
+                  {pr.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
     </div>
 
@@ -164,52 +96,47 @@ const { people } = Astro.props;
       </button>
     </div>
   </dialog>
-))}
+  );
+})}
 
 <script>
+  function openPersonDialog(slug: string) {
+    const dialog = document.getElementById(`bio-modal-${slug}`) as HTMLDialogElement | null;
+    if (dialog && !dialog.open) dialog.showModal();
+  }
+
   function setupBioModals() {
-    // Open buttons
-    const openButtons = document.querySelectorAll('.open-bio-modal-btn');
-    openButtons.forEach(btn => {
+    document.querySelectorAll('.open-bio-modal-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const slug = btn.getAttribute('data-person-slug');
-        if (!slug) return;
-        const dialog = document.getElementById(`bio-modal-${slug}`) as HTMLDialogElement | null;
-        if (dialog) {
-          dialog.showModal();
-        }
+        if (slug) openPersonDialog(slug);
       });
     });
 
-    // Close buttons
-    const closeButtons = document.querySelectorAll('.close-bio-btn');
-    closeButtons.forEach(btn => {
+    document.querySelectorAll('.close-bio-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const targetId = btn.getAttribute('data-close-target');
-        if (!targetId) return;
-        const dialog = document.getElementById(targetId) as HTMLDialogElement | null;
-        if (dialog) {
-          dialog.close();
-        }
+        const dialog = targetId ? (document.getElementById(targetId) as HTMLDialogElement | null) : null;
+        dialog?.close();
       });
     });
 
     // Close on backdrop click
-    const dialogs = document.querySelectorAll('.bio-dialog') as NodeListOf<HTMLDialogElement>;
-    dialogs.forEach(dialog => {
+    document.querySelectorAll<HTMLDialogElement>('.bio-dialog').forEach(dialog => {
       dialog.addEventListener('click', (e) => {
         const rect = dialog.getBoundingClientRect();
-        const isInDialog = (
-          rect.top <= e.clientY &&
-          e.clientY <= rect.top + rect.height &&
-          rect.left <= e.clientX &&
-          e.clientX <= rect.left + rect.width
-        );
-        if (!isInDialog) {
-          dialog.close();
-        }
+        const inside = rect.top <= e.clientY && e.clientY <= rect.bottom && rect.left <= e.clientX && e.clientX <= rect.right;
+        if (!inside) dialog.close();
       });
     });
+
+    // Deep link: /people/#person-slug opens that person's profile (used by project pages)
+    const openFromHash = () => {
+      const slug = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+      if (slug && document.getElementById(`bio-modal-${slug}`)) openPersonDialog(slug);
+    };
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
   }
 
   setupBioModals();

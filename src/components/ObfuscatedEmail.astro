@@ -1,0 +1,51 @@
+---
+/**
+ * Renders a mailto link without exposing the address in the HTML (anti-spam).
+ * The address is base64-encoded in data attributes and decoded on click.
+ * With JS disabled the link is inert, which is the intended trade-off.
+ */
+interface Props {
+  email: string;
+  class?: string;
+  title?: string;
+  'aria-label'?: string;
+  /** Show the address as text, written as "user [at] domain" */
+  showText?: boolean;
+}
+
+const { email, class: className, title, 'aria-label': ariaLabel, showText = false } = Astro.props;
+const [user, domain] = email.trim().split('@');
+const encode = (s: string) => Buffer.from(s, 'utf8').toString('base64');
+---
+
+<a
+  href="#contact"
+  class={`obfuscated-email ${className ?? ''}`}
+  data-u={encode(user)}
+  data-d={encode(domain)}
+  title={title}
+  aria-label={ariaLabel}
+  rel="nofollow"
+>
+  {showText ? (
+    <span class="font-mono"><span>{user}</span><span class="email-at mx-0.5 font-sans">[at]</span><span>{domain}</span></span>
+  ) : (
+    <slot />
+  )}
+</a>
+
+<script>
+  // One delegated listener handles every obfuscated link on the page
+  if (!(window as any).__obfuscatedEmailReady) {
+    (window as any).__obfuscatedEmailReady = true;
+    document.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a.obfuscated-email');
+      if (!target) return;
+      e.preventDefault();
+      const email = `${atob(target.dataset.u || '')}@${atob(target.dataset.d || '')}`;
+      const at = target.querySelector('.email-at');
+      if (at) at.textContent = '@';
+      window.location.href = `mailto:${email}`;
+    });
+  }
+</script>

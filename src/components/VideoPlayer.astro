@@ -1,52 +1,103 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import { url } from '../utils/url';
+import Icon from './Icon.astro';
 
+/**
+ * Main video of a project page.
+ * - YouTube URL  → "click-to-play" facade: the poster is shown and the YouTube iframe
+ *                   is only injected after the visitor presses play (B3: no third-party
+ *                   requests or ~500 KB of player JS until then).
+ * - .mp4 path    → native <video>.
+ * - otherwise    → just the poster image.
+ */
 interface Props {
-  videoUrl?: string;
-  poster?: string;
+  videoUrl?: string | null;
+  poster: ImageMetadata;
   title: string;
 }
 
 const { videoUrl, poster, title } = Astro.props;
 
-function getYouTubeId(url: string | undefined): string | null {
-  if (!url) return null;
-  const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+function getYouTubeId(u: string | null | undefined): string | null {
+  if (!u) return null;
+  const match = u.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
   return match ? match[1] : null;
 }
 
 const youtubeId = getYouTubeId(videoUrl);
-const isNativeVideo = videoUrl && !youtubeId && (videoUrl.endsWith('.mp4') || videoUrl.includes('.mp4'));
+const isNativeVideo = Boolean(videoUrl && !youtubeId && videoUrl.includes('.mp4'));
 ---
 
 <div class="video-container relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-950 shadow-xl border border-slate-200/50">
   {youtubeId ? (
-    <iframe
-      src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0`}
-      title={title}
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen
-      class="absolute inset-0 w-full h-full border-0"
-    />
+    <button
+      type="button"
+      class="youtube-facade group absolute inset-0 w-full h-full cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-400"
+      data-youtube-id={youtubeId}
+      data-title={title}
+      aria-label={`Play video: ${title}`}
+    >
+      <Image
+        src={poster}
+        alt=""
+        widths={[640, 960, 1280]}
+        sizes="(min-width: 1024px) 896px, 100vw"
+        loading="eager"
+        class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+      />
+      <span class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></span>
+      <span class="absolute inset-0 flex items-center justify-center">
+        <span class="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 group-hover:bg-red-500 group-hover:scale-105 text-white shadow-2xl transition-all">
+          <Icon name="play" class="w-8 h-8 sm:w-10 sm:h-10 ml-1" />
+        </span>
+      </span>
+      <span class="absolute bottom-3 left-4 right-4 text-left text-white text-xs sm:text-sm font-medium drop-shadow">
+        Watch on YouTube
+      </span>
+    </button>
   ) : isNativeVideo ? (
     <video
       controls
       playsinline
-      poster={poster}
+      preload="metadata"
+      poster={poster.src}
       class="absolute inset-0 w-full h-full object-cover"
     >
-      <source src={url(videoUrl)} type="video/mp4" />
+      <source src={url(videoUrl!)} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-  ) : poster ? (
-    <img
+  ) : (
+    <Image
       src={poster}
       alt={title}
+      widths={[640, 960, 1280]}
+      sizes="(min-width: 1024px) 896px, 100vw"
+      loading="eager"
       class="absolute inset-0 w-full h-full object-cover"
     />
-  ) : (
-    <div class="absolute inset-0 flex items-center justify-center text-slate-500 text-sm">
-      No video available
-    </div>
   )}
 </div>
+
+<script>
+  function setupYouTubeFacades() {
+    document.querySelectorAll<HTMLButtonElement>('.youtube-facade').forEach(btn => {
+      if (btn.dataset.ready) return;
+      btn.dataset.ready = 'true';
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.youtubeId;
+        if (!id) return;
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?rel=0&autoplay=1`;
+        iframe.title = btn.dataset.title || 'Video';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        iframe.className = 'absolute inset-0 w-full h-full border-0';
+        btn.replaceWith(iframe);
+      });
+    });
+  }
+  setupYouTubeFacades();
+  document.addEventListener('astro:page-load', setupYouTubeFacades);
+</script>

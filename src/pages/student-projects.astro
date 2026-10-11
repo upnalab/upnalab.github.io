@@ -1,12 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import VideoPlayer from '../components/VideoPlayer.astro';
-import projectsData from '../data/projects.json';
 import { url } from '../utils/url';
+import { getImage } from '../utils/images';
+import { getStudentProjects } from '../utils/data';
 
-const studentProjects = projectsData
-  .filter(p => p.category === 'Student Project')
-  .sort((a, b) => b.year - a.year);
+const studentProjects = (await getStudentProjects()).sort((a, b) => b.year - a.year);
 ---
 
 <BaseLayout
@@ -22,8 +21,8 @@ const studentProjects = projectsData
           <div class="flex flex-col lg:flex-row gap-8 items-start">
             <div class="w-full lg:w-3/5 shrink-0">
               <VideoPlayer
-                videoUrl={project.paperVideo || undefined}
-                poster={url(project.thumbnail)}
+                videoUrl={project.paperVideo}
+                poster={getImage(project.thumbnail)}
                 title={project.title}
               />
             </div>

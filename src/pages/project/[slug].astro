@@ -2,37 +2,47 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import VideoPlayer from '../../components/VideoPlayer.astro';
 import BibtexBlock from '../../components/BibtexBlock.astro';
-import projectsData from '../../data/projects.json';
+import Icon from '../../components/Icon.astro';
 import { url } from '../../utils/url';
+import { getImage } from '../../utils/images';
+import { getProjects, getPeople, findPersonForAuthor, doiUrl, cleanDoi, excerpt, type Project } from '../../utils/data';
 
 export async function getStaticPaths() {
-  return projectsData.map(project => ({
+  const projects = await getProjects();
+  return projects.map(project => ({
     params: { slug: project.slug },
     props: { project }
   }));
 }
 
+interface Props {
+  project: Project;
+}
+
 const { project } = Astro.props;
+const people = await getPeople();
 
-const hasDoiOrPaper = Boolean(project.doi || project.publicationUrl);
-const paperLink = project.doi || project.publicationUrl;
+const SITE = 'https://upnalab.com';
+const isStudent = project.category === 'Student Project';
 
-const cleanDoi = project.doi ? project.doi.replace(/^https?:\/\/doi\.org\//, '') : undefined;
-const resolvedPublicationUrl = project.publicationUrl || (project.doi ? (project.doi.startsWith('http') ? project.doi : `https://doi.org/${project.doi}`) : undefined);
+const paperLink = doiUrl(project);
+const hasDoiOrPaper = Boolean(paperLink);
+const doi = cleanDoi(project);
 
 const academicCitation = {
   title: project.title,
   authors: project.authors,
   date: project.date,
-  doi: cleanDoi,
+  doi,
   pdfUrl: project.publicationUrl && project.publicationUrl.toLowerCase().endsWith('.pdf') ? project.publicationUrl : undefined,
-  publicationUrl: resolvedPublicationUrl,
+  publicationUrl: paperLink,
 };
 
-const projectCanonicalUrl = `https://upnalab.com/project/${project.slug}/`;
-const ogImageUrl = project.thumbnail
-  ? (project.thumbnail.startsWith('http') ? project.thumbnail : `https://upnalab.com${project.thumbnail}`)
-  : undefined;
+const thumbnail = getImage(project.thumbnail);
+const projectCanonicalUrl = `${SITE}/project/${project.slug}/`;
+
+// Authors that are (or were) members of the lab link to their profile (D3)
+const authors = project.authors.map(name => ({ name, person: findPersonForAuthor(name, people) }));
 
 const scholarlyArticleJsonLd = {
   "@context": "https://schema.org",
@@ -41,76 +51,53 @@ const scholarlyArticleJsonLd = {
   "name": project.title,
   "description": project.abstract || project.title,
   ...(project.date ? { "datePublished": project.date } : {}),
-  ...(ogImageUrl ? { "image": ogImageUrl } : {}),
+  "image": `${SITE}${thumbnail.src}`,
   "url": projectCanonicalUrl,
   "mainEntityOfPage": projectCanonicalUrl,
-  ...(project.authors && project.authors.length > 0 ? {
+  ...(project.authors.length > 0 ? {
     "author": project.authors.map(author => ({
       "@type": "Person",
       "name": author
     }))
   } : {}),
   "publisher": {
-    "@id": "https://upnalab.com/#organization"
+    "@id": `${SITE}/#organization`
   },
-  ...(project.doi ? {
-    "sameAs": project.doi.startsWith('http') ? project.doi : `https://doi.org/${project.doi}`
-  } : (project.publicationUrl ? { "sameAs": project.publicationUrl } : {})),
-  ...(project.tags && project.tags.length > 0 ? { "keywords": project.tags.join(', ') } : {})
+  ...(paperLink ? { "sameAs": paperLink } : {}),
+  ...(project.tags.length > 0 ? { "keywords": project.tags.join(', ') } : {})
 };
 
-const parentCategoryName = project.category === 'Student Project' ? 'Student Projects' : 'Research Projects';
-const parentCategoryUrl = project.category === 'Student Project' ? 'https://upnalab.com/student-projects' : 'https://upnalab.com';
+const parentCategoryName = isStudent ? 'Student Projects' : 'Research Projects';
+const parentCategoryPath = isStudent ? '/student-projects' : '/';
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://upnalab.com"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": parentCategoryName,
-      "item": parentCategoryUrl
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": project.title,
-      "item": projectCanonicalUrl
-    }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE },
+    { "@type": "ListItem", "position": 2, "name": parentCategoryName, "item": `${SITE}${parentCategoryPath}` },
+    { "@type": "ListItem", "position": 3, "name": project.title, "item": projectCanonicalUrl }
   ]
 };
-
-const projectJsonLd = [scholarlyArticleJsonLd, breadcrumbJsonLd];
 ---
 
 <BaseLayout
   title={`${project.title} · UPNALAB`}
-  description={project.abstract ? project.abstract.slice(0, 160) + '...' : project.title}
-  image={project.thumbnail}
+  description={excerpt(project.abstract, 160) || project.title}
+  image={thumbnail}
   article={true}
   citation={academicCitation}
-  jsonLd={projectJsonLd}
-  keywords={project.tags && project.tags.length > 0 ? project.tags.join(', ') : undefined}
+  jsonLd={[scholarlyArticleJsonLd, breadcrumbJsonLd]}
+  keywords={project.tags.length > 0 ? project.tags.join(', ') : undefined}
 >
   <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-    
+
     <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-6" aria-label="Breadcrumb">
       <a href={url('/')} class="hover:text-slate-900 transition-colors">Home</a>
-      <span>/</span>
-      {project.category === 'Student Project' ? (
-        <a href={url('/student-projects')} class="hover:text-slate-900 transition-colors">Student Projects</a>
-      ) : (
-        <a href={url('/')} class="hover:text-slate-900 transition-colors">Research Projects</a>
-      )}
-      <span>/</span>
-      <span class="text-slate-900 truncate max-w-[200px] sm:max-w-md">{project.title}</span>
+      <span aria-hidden="true">/</span>
+      <a href={url(parentCategoryPath)} class="hover:text-slate-900 transition-colors">{parentCategoryName}</a>
+      <span aria-hidden="true">/</span>
+      <span class="text-slate-900 truncate max-w-[200px] sm:max-w-md" aria-current="page">{project.title}</span>
     </nav>
 
     <header class="mb-8">
@@ -123,22 +110,30 @@ const projectJsonLd = [scholarlyArticleJsonLd, breadcrumbJsonLd];
             {tag}
           </span>
         ))}
-        <span class="text-xs text-slate-400 ml-auto">
+        <time class="text-xs text-slate-400 ml-auto" datetime={project.date}>
           {project.date}
-        </span>
+        </time>
       </div>
 
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
         {project.title}
       </h1>
 
-      {project.authors && project.authors.length > 0 && (
+      {authors.length > 0 && (
         <div class="mt-4 pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-y-1 gap-x-2 text-sm text-slate-700 font-medium">
           <span class="text-slate-400 font-normal">Authors:</span>
-          {project.authors.map((author, idx) => (
+          {authors.map(({ name, person }, idx) => (
             <span>
-              <span class="text-slate-900">{author}</span>
-              {idx < project.authors.length - 1 && <span class="text-slate-300">·</span>}
+              {person ? (
+                <a
+                  href={url(`/people/#${person.slug}`)}
+                  class="text-brand-700 hover:text-brand-800 hover:underline decoration-brand-300 underline-offset-2"
+                  title={`${person.name} · ${person.role} at UPNALAB`}
+                >{name}</a>
+              ) : (
+                <span class="text-slate-900">{name}</span>
+              )}
+              {idx < authors.length - 1 && <span class="text-slate-300 ml-2">·</span>}
             </span>
           ))}
         </div>
@@ -147,8 +142,8 @@ const projectJsonLd = [scholarlyArticleJsonLd, breadcrumbJsonLd];
 
     <div class="mb-10">
       <VideoPlayer
-        videoUrl={project.paperVideo || project.videoPreview || undefined}
-        poster={url(project.thumbnail)}
+        videoUrl={project.paperVideo || project.videoPreview}
+        poster={thumbnail}
         title={project.title}
       />
     </div>
@@ -156,12 +151,13 @@ const projectJsonLd = [scholarlyArticleJsonLd, breadcrumbJsonLd];
     {(hasDoiOrPaper || project.instructablesUrl) && (
       <div class="mb-10 p-5 rounded-2xl bg-brand-50/70 border border-brand-100 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="text-center sm:text-left">
-          <h3 class="text-sm font-bold text-brand-900">
+          <h2 class="text-sm font-bold text-brand-900">
             {hasDoiOrPaper ? 'Peer-Reviewed Academic Publication' : 'Open Hardware Guide'}
-          </h3>
+          </h2>
           <p class="text-xs text-brand-700 mt-0.5">
             {hasDoiOrPaper ? 'Read the full paper, experimental results and appendices.' : 'Explore step-by-step schematics and instructions.'}
           </p>
+          {doi && <p class="text-xs text-brand-700/80 mt-1 font-mono">DOI: <a href={`https://doi.org/${doi}`} target="_blank" rel="noopener noreferrer" class="underline decoration-brand-300 hover:text-brand-900 hover:decoration-brand-700">{doi}</a></p>}
         </div>
         <div class="flex flex-wrap items-center gap-3">
           {project.instructablesUrl && (
@@ -172,9 +168,7 @@ const projectJsonLd = [scholarlyArticleJsonLd, breadcrumbJsonLd];
               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium text-sm shadow-sm transition-colors whitespace-nowrap"
             >
               <span>Build on Instructables</span>
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+              <Icon name="external" class="w-4 h-4" />
             </a>
           )}
           {hasDoiOrPaper && (
@@ -185,9 +179,7 @@ const projectJsonLd = [scholarlyArticleJsonLd, breadcrumbJsonLd];
               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm shadow-sm transition-colors whitespace-nowrap"
             >
               <span>Read Full Paper</span>
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+              <Icon name="external" class="w-4 h-4" />
             </a>
           )}
         </div>
@@ -229,15 +221,13 @@ const projectJsonLd = [scholarlyArticleJsonLd, breadcrumbJsonLd];
       </section>
     )}
 
-    <div class="mt-14 pt-8 border-t border-slate-200 flex items-center justify-between">
+    <div class="mt-14 pt-8 border-t border-slate-200 flex items-center justify-between flex-wrap gap-3">
       <a
-        href={url('/')}
+        href={url(parentCategoryPath)}
         class="inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-700"
       >
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        <span>Back to All Projects</span>
+        <Icon name="arrow-left" class="w-4 h-4" />
+        <span>Back to {parentCategoryName}</span>
       </a>
     </div>
 

@@ -44,7 +44,7 @@
     "category": "Visitors",
     "subCategory": "Visitor",
     "photo": "/assets/images/people/alex-martinez.webp",
-    "bio": "<p class=\"mb-4\">Work in progress...</p>",
+    "bio": "",
     "links": {
       "website": "",
       "linkedin": "",
@@ -171,12 +171,12 @@
     }
   },
   {
-    "slug": "javier-zaratiegui-2",
+    "slug": "javier-zaratiegui",
     "name": "Javier Zaratiegui",
     "role": "PhD",
     "category": "Alumni",
     "subCategory": "Previous Member",
-    "photo": "/assets/images/people/javier-zaratiegui-2.webp",
+    "photo": "/assets/images/people/javier-zaratiegui.webp",
     "bio": "",
     "links": {
       "website": "",
@@ -272,7 +272,7 @@
     "category": "Visitors",
     "subCategory": "Visitor",
     "photo": "/assets/images/people/marika-sirkka.webp",
-    "bio": "<p class=\"mb-4\">Work in progress...</p>",
+    "bio": "",
     "links": {
       "website": "",
       "linkedin": "",
@@ -405,7 +405,7 @@
     "category": "Visitors",
     "subCategory": "Visitor",
     "photo": "/assets/images/people/soma-mochizuki.webp",
-    "bio": "<p class=\"mb-4\">Work in progress</p>",
+    "bio": "",
     "links": {
       "website": "",
       "linkedin": "",

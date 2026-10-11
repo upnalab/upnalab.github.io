@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ObfuscatedEmail from '../components/ObfuscatedEmail.astro';
+import { siteData } from '../utils/data';
+
+const { contact } = siteData;
+const analyticsEnabled = Boolean(siteData.analytics?.goatcounter?.trim());
+const lastUpdated = '2026-10-11';
+---
+
+<BaseLayout
+  title="Privacy & Legal Notice · UPNALAB"
+  description="Privacy policy and legal notice of the UPNALAB research group website: no cookies, no tracking, and how we handle the little data this site touches."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Privacy & Legal Notice</h1>
+    <p class="mt-2 text-sm text-slate-500">Last updated: {lastUpdated}</p>
+
+    <div class="prose prose-slate max-w-none mt-8">
+      <h2>Who we are</h2>
+      <p>
+        This website (<strong>upnalab.com</strong>) presents the research activity of UPNALAB, a research group of the
+        <a href="https://www.unavarra.es" target="_blank" rel="noopener noreferrer">Universidad Pública de Navarra (UPNA)</a>,
+        {contact.addressLine1}, {contact.addressLine2}. For any question about this site or your data you can write to
+        <ObfuscatedEmail email={contact.email} showText />.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        <strong>This site does not set cookies</strong> and does not use any tracking technology that requires your consent.
+        That is why you see no cookie banner.
+      </p>
+
+      <h2>Analytics</h2>
+      {analyticsEnabled ? (
+        <p>
+          We measure page views with <a href="https://www.goatcounter.com/" target="_blank" rel="noopener noreferrer">GoatCounter</a>,
+          a privacy-friendly service hosted in the EU. It does not use cookies, does not store your IP address and does not
+          build a profile of you; it only counts which pages are visited, from which country and with which browser, in aggregate.
+          This processing is based on our legitimate interest in knowing which content is useful (art. 6.1.f GDPR).
+        </p>
+      ) : (
+        <p>We do not collect any analytics or usage statistics on this site.</p>
+      )}
+
+      <h2>Embedded content</h2>
+      <p>
+        Project pages can show videos hosted on YouTube. The video player is <strong>only loaded after you press play</strong>;
+        until then no request is sent to YouTube. When you do press play, the privacy-enhanced domain
+        <code>youtube-nocookie.com</code> is used, and from that moment
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's privacy policy</a> applies.
+        Links to external sites (publishers, GitHub, Instructables, LinkedIn, ORCID, Google Scholar, Google Maps) are governed by
+        the privacy policies of those sites.
+      </p>
+
+      <h2>Hosting</h2>
+      <p>
+        The site is a static website served by <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>.
+        As with any web server, GitHub may process technical data such as your IP address to deliver the pages;
+        see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's privacy statement</a>.
+        Fonts are served from this same site, not from third-party font services.
+      </p>
+
+      <h2>Contact by email</h2>
+      <p>
+        If you write to us, we use your name, address and message only to answer you. We keep the correspondence for as
+        long as necessary to deal with your request. Under GDPR you can ask to access, correct or delete this data by writing
+        to the same address.
+      </p>
+
+      <h2>People listed on this site</h2>
+      <p>
+        The <a href="/people/">People</a> section lists current and former members of the group with their professional
+        role, photo, short biography and public professional profiles, published with their knowledge as part of their
+        research activity. Any listed person can ask for their entry to be updated or removed at any time.
+      </p>
+
+      <h2>Intellectual property</h2>
+      <p>
+        Texts, images and videos on this site belong to UPNALAB or their respective authors unless stated otherwise.
+        Research papers linked from this site are published by their respective publishers and subject to their terms.
+        Open-source code and tutorials are shared under the licenses stated in each repository or guide.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

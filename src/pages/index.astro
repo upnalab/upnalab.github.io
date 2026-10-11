@@ -1,11 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectGrid from '../components/ProjectGrid.astro';
-import projectsData from '../data/projects.json';
-import { url } from '../utils/url';
+import { getResearchProjects } from '../utils/data';
 
-// Filter strictly research projects for home view
-const researchProjects = projectsData.filter(p => p.category === 'Research Project');
+const researchProjects = await getResearchProjects();
 ---
 
 <BaseLayout
@@ -15,8 +13,6 @@ const researchProjects = projectsData.filter(p => p.category === 'Research Proje
   <h1 class="sr-only">UPNALAB · Combining computer science, physics, electronics, mechanics and chemistry to create interactive devices</h1>
 
   <div id="projects">
-    <ProjectGrid 
-      projects={researchProjects} 
-    />
+    <ProjectGrid projects={researchProjects} />
   </div>
 </BaseLayout>

@@ -1,7 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import siteData from '../data/site-data.json';
-import { url } from '../utils/url';
+import Icon from '../components/Icon.astro';
+import { getImage } from '../utils/images';
+import { siteData } from '../utils/data';
 
 const { diy } = siteData;
 ---
@@ -16,7 +18,7 @@ const { diy } = siteData;
         Do-It-Yourself
       </h1>
       <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-        We believe research should be open and accessible. Build your own acoustic levitators, 
+        We believe research should be open and accessible. Build your own acoustic levitators,
         ultrasonic phased arrays, and interactive displays using our open tutorials and schematics.
       </p>
     </div>
@@ -25,9 +27,12 @@ const { diy } = siteData;
       {diy.map(resource => (
         <article class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-6 items-center hover:shadow-lg transition-all duration-200">
           <div class="w-32 h-32 shrink-0 rounded-2xl overflow-hidden bg-slate-100 ring-1 ring-slate-200">
-            <img
-              src={url(resource.image)}
-              alt={resource.title}
+            <Image
+              src={getImage(resource.image)}
+              alt=""
+              width={128}
+              height={128}
+              densities={[1, 2]}
               loading="lazy"
               class="w-full h-full object-cover"
             />
@@ -46,9 +51,7 @@ const { diy } = siteData;
               class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white shadow-sm transition-colors"
             >
               <span>Explore {resource.title}</span>
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+              <Icon name="external" class="w-3.5 h-3.5" />
             </a>
           </div>
         </article>

@@ -71,5 +71,15 @@
       "image": "/assets/images/diy/openspace.webp",
       "description": "A service aimed at fostering activity-based learning, where the Public University of Navarra (UPNA) community can create and develop projects, share knowledge, and explore new technologies. 3D printers, laser cutters, materials for electronics and more at your disposal in the UPNA's library building."
     }
-  ]
+  ],
+  "contact": {
+    "email": "asier.marzo@unavarra.es",
+    "addressLine1": "Edificio Los Tejos, Campus Arrosadia",
+    "addressLine2": "31006 Pamplona, Navarra, Spain",
+    "mapsUrl": "https://www.google.com/maps/place/Las+Encinas/@42.7988493,-1.6374229,17z/data=!4m6!3m5!1s0xd5093652f437331:0xaeb2d0202ccf2252!8m2!3d42.7982746!4d-1.6356311!16s%2Fg%2F11p3hyc2h8"
+  },
+  "analytics": {
+    "_comment": "Cookie-less analytics (no consent banner needed). Create a free site at https://www.goatcounter.com and put its code (the <code> in <code>.goatcounter.com) below. Leave empty to disable analytics.",
+    "goatcounter": ""
+  }
 }

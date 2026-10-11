@@ -1,189 +1,105 @@
 ---
+import { Image } from 'astro:assets';
 import { url } from '../utils/url';
+import { siteData } from '../utils/data';
+import ObfuscatedEmail from './ObfuscatedEmail.astro';
+import mapImage from '../assets/images/site/map.webp';
+
 const currentYear = new Date().getFullYear();
+const { contact } = siteData;
+
+const navLinks = [
+  { name: 'Research Projects', href: '/' },
+  { name: 'Student Projects', href: '/student-projects' },
+  { name: 'Do-It-Yourself Guides', href: '/do-it-yourself' },
+  { name: 'People & Team', href: '/people' },
+  { name: 'About Us & Grants', href: '/about' },
+];
+
+const communityLinks = [
+  { name: 'GitHub', href: 'https://github.com/upnalab' },
+  { name: 'YouTube', href: 'https://www.youtube.com/@UpnaLab' },
+  { name: 'Instructables', href: 'https://www.instructables.com/member/UpnaLab/' },
+  { name: 'Twitter / X', href: 'https://twitter.com/upnalab' },
+  { name: 'Universidad Pública de Navarra', href: 'https://www.unavarra.es' },
+];
 ---
 
 <footer class="bg-slate-900 text-slate-300 border-t border-slate-800 mt-20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-      
+
       <div>
         <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-3">Navigation</h3>
         <ul class="space-y-2 text-sm">
-          <li><a href={url('/')} class="hover:text-white transition-colors">Research Projects</a></li>
-          <li><a href={url('/student-projects')} class="hover:text-white transition-colors">Student Projects</a></li>
-          <li><a href={url('/do-it-yourself')} class="hover:text-white transition-colors">Do-It-Yourself Guides</a></li>
-          <li><a href={url('/people')} class="hover:text-white transition-colors">People & Team</a></li>
-          <li><a href={url('/about')} class="hover:text-white transition-colors">About Us & Grants</a></li>
+          {navLinks.map(l => (
+            <li><a href={url(l.href)} class="hover:text-white transition-colors">{l.name}</a></li>
+          ))}
         </ul>
       </div>
 
       <div>
         <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-3">Community</h3>
         <ul class="space-y-2 text-sm">
-          <li>
-            <a href="https://github.com/upnalab" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
-              <span>GitHub</span>
-              <span class="text-xs text-slate-500">↗</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.youtube.com/@UpnaLab" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
-              <span>YouTube</span>
-              <span class="text-xs text-slate-500">↗</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.instructables.com/member/UpnaLab/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
-              <span>Instructables</span>
-              <span class="text-xs text-slate-500">↗</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/upnalab" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
-              <span>Twitter / X</span>
-              <span class="text-xs text-slate-500">↗</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.unavarra.es" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
-              <span>Universidad Pública de Navarra</span>
-              <span class="text-xs text-slate-500">↗</span>
-            </a>
-          </li>
+          {communityLinks.map(l => (
+            <li>
+              <a href={l.href} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
+                <span>{l.name}</span>
+                <span class="text-xs text-slate-500" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
 
-      <div>
-        <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-3">Location</h3>
+      <div id="contact">
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white mb-3">Location & Contact</h3>
         <p class="text-xs text-slate-400 mb-3 leading-relaxed">
-          Edificio Los Tejos, Campus Arrosadia<br />
-          31006 Pamplona, Navarra, Spain
+          {contact.addressLine1}<br />
+          {contact.addressLine2}
         </p>
-        <a 
-          href="https://www.google.com/maps/place/Las+Encinas/@42.7988493,-1.6374229,17z/data=!4m6!3m5!1s0xd5093652f437331:0xaeb2d0202ccf2252!8m2!3d42.7982746!4d-1.6356311!16s%2Fg%2F11p3hyc2h8" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href={contact.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="Open UPNALAB location in Google Maps"
           class="group block relative rounded-xl overflow-hidden border-2 border-brand-500/60 hover:border-brand-400 transition-all duration-200 shadow-md aspect-[16/10] w-full bg-slate-950"
         >
-          <img 
-            src={url('/assets/images/site/map.jpeg')} 
-            alt="UPNALAB Location Map" 
-            width="1244"
-            height="790"
-            decoding="async"
+          <Image
+            src={mapImage}
+            alt="Map showing the UPNALAB building on the Arrosadia campus"
+            widths={[400, 800]}
+            sizes="(min-width: 768px) 400px, 100vw"
+            loading="lazy"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div class="absolute inset-0 bg-slate-950/10 group-hover:bg-transparent transition-colors"></div>
           <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded-md bg-slate-900/90 backdrop-blur-xs text-[11px] font-medium text-white flex items-center gap-1.5 shadow-sm group-hover:bg-brand-600 transition-colors">
             <span>Google Maps</span>
-            <span class="text-xs">↗</span>
+            <span class="text-xs" aria-hidden="true">↗</span>
           </div>
         </a>
 
         <div class="mt-3">
-          <button 
-            type="button" 
-            id="footer-contact-btn"
-            class="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500/60 transition-all text-xs text-slate-300 hover:text-white group cursor-pointer shadow-xs"
-            title="Click to send email or copy address"
-            aria-label="Send email to Asier Marzo"
-          >
-            <div class="flex items-center gap-2 min-w-0">
-              <svg class="w-4 h-4 text-brand-400 group-hover:text-brand-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-              </svg>
-              <span class="truncate font-mono text-[11px] text-slate-300 group-hover:text-white">
-                <span id="contact-user">asier.marzo</span><span id="contact-at" class="text-slate-400 mx-0.5 font-sans font-normal">[at]</span><span id="contact-domain">unavarra.es</span>
-              </span>
-            </div>
-            <span 
-              id="footer-contact-badge"
-              class="shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-900/90 text-slate-400 border border-slate-700/60 group-hover:text-brand-300 group-hover:border-brand-500/50 transition-colors"
-            >
-              Email
-            </span>
-          </button>
+          <ObfuscatedEmail
+            email={contact.email}
+            showText
+            title="Send us an email"
+            aria-label="Send an email to UPNALAB"
+            class="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-500/60 transition-all text-[11px] text-slate-300 hover:text-white group shadow-xs"
+          />
         </div>
       </div>
 
     </div>
 
-    <div class="mt-12 pt-8 border-t border-slate-800/80 text-xs text-slate-500">
+    <div class="mt-12 pt-8 border-t border-slate-800/80 text-xs text-slate-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
       <p>© {currentYear} UPNALAB · Universidad Pública de Navarra. All rights reserved.</p>
+      <p class="flex items-center gap-3">
+        <a href={url('/privacy')} class="hover:text-white transition-colors">Privacy & Legal Notice</a>
+        <span aria-hidden="true">·</span>
+        <span>No cookies on this site</span>
+      </p>
     </div>
   </div>
 </footer>
-
-<script>
-  function setupFooterContact() {
-    const btn = document.getElementById('footer-contact-btn');
-    const atSpan = document.getElementById('contact-at');
-    const badge = document.getElementById('footer-contact-badge');
-    if (!btn || btn.dataset.initialized) return;
-    btn.dataset.initialized = 'true';
-
-    // Obfuscated parts decoded in memory upon user action
-    const getEmail = () => {
-      const u = atob('YXNpZXIubWFyem8=');
-      const d = atob('dW5hdmFycmEuZXM=');
-      return `${u}@${d}`;
-    };
-
-    const showAt = () => {
-      if (atSpan) {
-        atSpan.textContent = '@';
-        atSpan.classList.add('text-brand-400', 'font-semibold');
-        atSpan.classList.remove('text-slate-400', 'font-normal');
-      }
-    };
-
-    const resetAt = () => {
-      if (atSpan && !btn.dataset.copied) {
-        atSpan.textContent = '[at]';
-        atSpan.classList.remove('text-brand-400', 'font-semibold');
-        atSpan.classList.add('text-slate-400', 'font-normal');
-      }
-    };
-
-    btn.addEventListener('mouseenter', showAt);
-    btn.addEventListener('mouseleave', resetAt);
-    btn.addEventListener('focus', showAt);
-    btn.addEventListener('blur', resetAt);
-
-    btn.addEventListener('click', () => {
-      const email = getEmail();
-      showAt();
-
-      // 1. Copy cleanly to clipboard
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).catch(() => {});
-      }
-
-      // 2. Visual feedback
-      btn.dataset.copied = 'true';
-      if (badge) {
-        badge.textContent = 'Copied!';
-        badge.classList.remove('text-slate-400', 'border-slate-700/60');
-        badge.classList.add('text-emerald-300', 'border-emerald-500/60', 'bg-emerald-950/70');
-      }
-
-      setTimeout(() => {
-        delete btn.dataset.copied;
-        resetAt();
-        if (badge) {
-          badge.textContent = 'Email';
-          badge.classList.remove('text-emerald-300', 'border-emerald-500/60', 'bg-emerald-950/70');
-          badge.classList.add('text-slate-400', 'border-slate-700/60');
-        }
-      }, 2500);
-
-      // 3. Launch mailto client
-      window.location.href = `mailto:${email}`;
-    });
-  }
-
-  setupFooterContact();
-  document.addEventListener('astro:page-load', setupFooterContact);
-</script>

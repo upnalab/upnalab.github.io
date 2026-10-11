@@ -2,26 +2,18 @@
 
 Welcome to the **UPNALAB** website repository! This guide is written for researchers, students, and lab managers who want to add, update, or remove content on [upnalab.com](https://upnalab.com).
 
-The site is built with **Astro** and hosted statically on **GitHub Pages**. All website content is stored in human-readable **JSON files**, so you do **not** need to touch complex code or HTML templates to keep the website up to date.
+The site is built with **Astro** and hosted statically on **GitHub Pages**. All website content is stored in human-readable **JSON files**, so you do **not** need to touch code or HTML templates to keep the website up to date.
+
+> **The build checks your data.** If a field is misspelled, a category is not one of the allowed values, or an image file is missing, `npm run build` stops with a message that names the entry and the problem. Nothing broken can reach the live site.
 
 ---
 
 ## Table of Contents
 1. [Quick Map: Where is Everything?](#1-quick-map-where-is-everything)
 2. [Managing Research Projects](#2-managing-research-projects)
-   - [Add a New Research Project](#add-a-new-research-project)
-   - [Edit an Existing Research Project](#edit-an-existing-research-project)
-   - [Delete a Research Project](#delete-a-research-project)
 3. [Managing Student Projects](#3-managing-student-projects)
-   - [Add a New Student Project](#add-a-new-student-project)
-   - [Edit or Delete a Student Project](#edit-or-delete-a-student-project)
 4. [Managing Team Members (People)](#4-managing-team-members-people)
-   - [Add a New Team Member](#add-a-new-team-member)
-   - [Edit a Team Member (or Move to Alumni)](#edit-a-team-member-or-move-to-alumni)
-   - [Delete a Team Member](#delete-a-team-member)
-5. [Updating Static Sections (About Us & Do-It-Yourself)](#5-updating-static-sections-about-us--do-it-yourself)
-   - [Updating "About Us" & Sponsors](#updating-about-us--sponsors)
-   - [Updating "Do-It-Yourself" Guides](#updating-do-it-yourself-guides)
+5. [Updating Static Sections (About Us, Do-It-Yourself, Contact, Analytics)](#5-updating-static-sections)
 6. [Testing Your Changes Locally](#6-testing-your-changes-locally)
 7. [Publishing Changes to GitHub Pages](#7-publishing-changes-to-github-pages)
 8. [Common Gotchas & Troubleshooting](#8-common-gotchas--troubleshooting)
@@ -32,25 +24,28 @@ The site is built with **Astro** and hosted statically on **GitHub Pages**. All 
 
 | What you want to change | Primary File to Edit | Media Assets Folder |
 | :--- | :--- | :--- |
-| **Research Projects** | `src/data/projects.json` | `public/assets/images/projects/`<br>`public/assets/videos/projects/` |
-| **Student Projects** | `src/data/projects.json` | `public/assets/images/projects/` |
-| **Team Members** | `src/data/people.json` | `public/assets/images/people/` |
-| **About Us & Sponsors** | `src/data/site-data.json` | `public/assets/images/sponsors/` |
-| **Do-It-Yourself (DIY)** | `src/data/site-data.json` | `public/assets/images/diy/` |
+| **Research Projects** (home, project pages) | `src/data/projects.json` | `src/assets/images/projects/` (thumbnails)<br>`public/assets/videos/projects/` (hover videos) |
+| **Student Projects** | `src/data/projects.json` | `src/assets/images/projects/` |
+| **Team Members** | `src/data/people.json` | `src/assets/images/people/` |
+| **About Us & Sponsors** | `src/data/site-data.json` | `src/assets/images/sponsors/` |
+| **Do-It-Yourself (DIY)** | `src/data/site-data.json` | `src/assets/images/diy/` |
+| **Contact address / email, analytics** | `src/data/site-data.json` | — |
 
-> All paths in JSON starting with `/assets/...` correspond directly to files inside the `public/assets/...` folder.
+> **Images** go in `src/assets/images/...` and are referenced in JSON as `/assets/images/...` (the site resizes and optimizes them automatically at build time).
+> **Videos** go in `public/assets/videos/...` and are referenced as `/assets/videos/...`.
+
 
 ---
 
 ## 2. Managing Research Projects
 
-All research projects are stored in `src/data/projects.json`. Each entry creates an individual project page at `/project/[slug]/` and automatically appears on the Home page grid (`/`) and All Projects page (`/all-projects`).
+All research projects are stored in `src/data/projects.json`. Each entry creates an individual project page at `/project/<slug>/` and automatically appears on the Home page grid.
 
 ### Add a New Research Project
 
 1. **Prepare media assets:**
-   - **Thumbnail image:** 4:3 aspect ratio recommended (e.g., `800x600 px`), formatted as `.webp`, `.jpg`, or `.png`. Place it in `public/assets/images/projects/`.
-   - **Hover micro-video (Optional but recommended):** A short, muted looping MP4 video (around 3-10 seconds, under 5 MB). Place it in `public/assets/videos/projects/`.
+   - **Thumbnail image:** 4:3 aspect ratio recommended (e.g. `800x600 px`), `.webp`, `.jpg` or `.png`. Place it in `src/assets/images/projects/`.
+   - **Hover micro-video (optional but recommended):** a short, muted looping MP4 (3-10 seconds, under 5 MB). Place it in `public/assets/videos/projects/`.
 2. **Open `src/data/projects.json`** in your text editor.
 3. **Add a new JSON object** to the top of the array:
 
@@ -72,7 +67,7 @@ All research projects are stored in `src/data/projects.json`. Each entry creates
   "abstract": "Here goes the full academic abstract of the paper or demo...",
   "publicationUrl": "https://dl.acm.org/doi/10.1145/XXXXXXX.XXXXXXX",
   "instructablesUrl": null,
-  "doi": "10.1145/XXXXXXX.XXXXXXX",
+  "doi": "https://doi.org/10.1145/XXXXXXX.XXXXXXX",
   "bibtex": "@inproceedings{marzo2026acoustic,\n  author = {Marzo, Asier and Doe, Jane},\n  title = {Acoustic Levitation of High-Density Materials},\n  year = {2026},\n  booktitle = {Proceedings of ACM CHI 2026}\n}",
   "apa": "Marzo, A., & Doe, J. (2026). Acoustic Levitation of High-Density Materials. In Proceedings of ACM CHI 2026.",
   "authors": [
@@ -83,39 +78,38 @@ All research projects are stored in `src/data/projects.json`. Each entry creates
 ```
 
 #### Field Explanations:
-- `id` and `slug`: URL slug using lowercase letters and hyphens. This sets the page URL: `https://upnalab.com/project/<slug>/`.
-- `category`: Must be `"Research Project"` for research work.
-- `tags`: Available filters in the grid: `"Ultrasound"`, `"Haptics"`, `"Displays"`, `"Virtual Reality"`, `"Fabrication"`, `"Sensors AI"`, or `"Affective Creativity Learning"`.
-- `thumbnail`: Path to the image starting with `/assets/...`.
-- `videoPreview`: Path to the `.mp4` file for hover playback, or `null` if none.
-- `paperVideo`: Full YouTube URL (e.g. `https://www.youtube.com/watch?v=...`) or a local video path.
-- `publicationUrl`: Link to publisher (ACM, IEEE, Springer, etc.).
-- `doi`: DOI string or DOI link.
-- `bibtex`: BibTeX citation. Use `\n` for line breaks.
-- `authors`: Array of author names in the order they appear on the paper.
+- `id` and `slug`: **must be identical**; lowercase letters, digits and hyphens only. This sets the page URL: `https://upnalab.com/project/<slug>/`.
+- `date`: `YYYY-MM-DD`. Projects are shown newest first by this date.
+- `category`: `"Research Project"` or `"Student Project"` (exact spelling).
+- `tags`: only these values are accepted: `"Ultrasound"`, `"Haptics"`, `"Displays"`, `"Virtual Reality"`, `"Fabrication"`, `"Sensors AI"`, `"Affective Creativity Learning"` (research), `"Multimedia"`, `"Student Work"`, `"Student Project"` (student). To add a new tag, add it to the `PROJECT_TAGS` list in `src/content.config.ts`.
+- `thumbnail`: path starting with `/assets/images/`; the file must exist in `src/assets/images/`.
+- `videoPreview`: path to the `.mp4` for hover playback, or `null`.
+- `paperVideo`: full YouTube URL, a local `.mp4` path, or `null`. YouTube videos are shown with a click-to-play cover (the YouTube player only loads when the visitor presses play).
+- `publicationUrl`, `doi`, `bibtex`, `apa`: use `null` when not available. `bibtex` uses `\n` for line breaks.
+- `authors`: names in paper order. **Authors whose name matches a person in `people.json` are linked automatically** to their profile, and the project appears in that person's biography popup. Use the same spelling as in `people.json` (accents are ignored; "Iñigo Ezcurdia" and "Inigo Ezcurdia" both match).
 
 ### Edit an Existing Research Project
 1. Open `src/data/projects.json`.
-2. Search (`Ctrl+F` or `Cmd+F`) for the project `slug` or title.
-3. Edit any fields (e.g., fix a typo, update authors, add a publication DOI once accepted).
-4. Save the file.
+2. Search (`Ctrl+F` / `Cmd+F`) for the project `slug` or title.
+3. Edit any field. Save the file.
+
+### Rename a project's slug (changes its URL)
+Old links from Google, papers or social media would break. Add a redirect in `astro.config.mjs` under `redirects`, like the existing ones, and rename the thumbnail/video files to match.
 
 ### Delete a Research Project
-1. Open `src/data/projects.json`.
-2. Find the project object and delete it (ensure you don't leave trailing commas in JSON).
-3. (Optional) Remove the unused image from `public/assets/images/projects/` and video from `public/assets/videos/projects/`.
+1. Remove the object from `src/data/projects.json` (watch for a leftover comma).
+2. Remove its image from `src/assets/images/projects/` and video from `public/assets/videos/projects/`.
 
 ---
 
 ## 3. Managing Student Projects
 
-Student projects (undergraduate multimedia systems coursework) are also stored in `src/data/projects.json`, but they are displayed on the dedicated **Student Projects** page (`/student-projects`).
+Student projects (undergraduate multimedia coursework) are also stored in `src/data/projects.json` and are displayed on the **Student Projects** page (`/student-projects`), sorted by `year` descending.
 
 ### Add a New Student Project
 
-1. **Prepare media assets:**
-   - Save the project preview thumbnail in `public/assets/images/projects/`.
-2. **Open `src/data/projects.json`** and add an entry with `"category": "Student Project"`:
+1. Save the thumbnail in `src/assets/images/projects/`.
+2. Add an entry to `src/data/projects.json` with `"category": "Student Project"`:
 
 ```json
 {
@@ -145,154 +139,121 @@ Student projects (undergraduate multimedia systems coursework) are also stored i
 }
 ```
 
-> **Note**: The Student Projects page automatically sorts projects descending by `year`. Setting `"category": "Student Project"` ensures it does not mix with research papers on the Home page.
-
 ### Edit or Delete a Student Project
-Same as with research projects: find the project entry in `src/data/projects.json` and edit or delete its JSON object.
+Same as research projects.
 
 ---
 
 ## 4. Managing Team Members (People)
 
-All team members, visitors, and alumni are configured in `src/data/people.json`.
+All team members, visitors and alumni are configured in `src/data/people.json`. People appear on `/people` in the order of the file.
 
 ### Add a New Team Member
 
-1. **Add photo:** Save a square profile portrait (e.g., `400x400 px`, `.webp`, `.jpg`, or `.png`) into `public/assets/images/people/<person-id>.webp`.
-2. **Open `src/data/people.json`** and add an entry:
+1. **Add photo:** a square portrait (e.g. `400x400 px`, `.webp`, `.jpg` or `.png`) in `src/assets/images/people/<slug>.webp`.
+2. **Open `src/data/people.json`** and add an entry (every key must be present; use `""` for links you don't have):
 
 ```json
 {
-  "id": "jane-doe",
+  "slug": "jane-doe",
   "name": "Jane Doe",
   "role": "PhD Student",
-  "group": "active",
+  "category": "Active",
+  "subCategory": "PhD Student",
   "photo": "/assets/images/people/jane-doe.webp",
   "bio": "<p>Jane is pursuing her PhD on ultrasound levitation for biomedical applications. She graduated in Computer Science at UPNA.</p>",
   "links": {
+    "website": "",
+    "linkedin": "https://linkedin.com/in/...",
     "scholar": "https://scholar.google.com/citations?user=XXXXXXX",
     "orcid": "https://orcid.org/0000-0000-0000-0000",
     "upna": "https://directorio.unavarra.es/...",
-    "linkedin": "https://linkedin.com/in/...",
-    "github": "https://github.com/...",
-    "twitter": null,
-    "website": null,
+    "twitter": "",
+    "github": "",
     "email": "jane.doe@unavarra.es"
   }
 }
 ```
 
-#### Member Groups:
-- `"group": "active"` → Listed under **Current Members**
-- `"group": "visitor"` → Listed under **Visiting Researchers & Students**
-- `"group": "alumni"` → Listed under **Alumni**
-
-> If a person does not have a specific social link (e.g. no Twitter), set its value to `null` or omit that key.
+#### Field Explanations:
+- `slug`: lowercase letters, digits and hyphens; must be unique. It is also the anchor of the profile (`/people/#jane-doe`).
+- `role`: free text shown under the name (e.g. `Staff`, `Postdoc`, `PhD Student`, `Project Collaborator`).
+- `category` decides the section on the People page. **Exactly one of:**
+  - `"Active"` → **Current Members**
+  - `"Visitors"` → **Visiting Researchers & Students**
+  - `"Alumni"` → **Alumni & Former Members**
+- `subCategory`: free text for your own bookkeeping (e.g. `Staff`, `PhD Student`, `Visitor`, `Previous Member`); not shown on the site.
+- `bio`: HTML (`<p>`, `<strong>`, `<br />`, `<a>` are fine). Leave `""` if there is none; the popup then says "No detailed biography available".
+- `links.email`: the address is **not written in the page's HTML**; it is encoded and only revealed when a visitor clicks the mail icon. Spam bots cannot harvest it.
+- `links.upna`: must be a full `https://` URL (anything else is ignored).
 
 ### Edit a Team Member (or Move to Alumni)
-- **Change Role or Bio:** Find the person in `src/data/people.json` and edit `"role"` or `"bio"`.
-- **Move to Alumni:** When a member graduates or leaves the lab, simply change:
-  ```json
-  "group": "alumni"
-  ```
-  The website will automatically move them to the Alumni section on the `/people` page.
+- **Change role or bio:** edit `"role"` or `"bio"`.
+- **Move to Alumni:** change `"category": "Active"` to `"category": "Alumni"`.
 
 ### Delete a Team Member
-Delete their object block in `src/data/people.json`.
+Delete their object in `src/data/people.json` and their photo in `src/assets/images/people/`.
 
 ---
 
-## 5. Updating Static Sections (About Us & Do-It-Yourself)
+## 5. Updating Static Sections
 
-Both pages source their content from `src/data/site-data.json`.
+Everything below lives in `src/data/site-data.json`.
 
-### Updating "About Us" & Sponsors
+### "About Us" & Sponsors (`"about"`)
+- `headline`, `subheadline`: text at the top of the About page.
+- `expertise`: list of bullet points.
+- `values`: list of `{ "title", "description" }`.
+- `sponsors`: list of `{ "title", "logo" }`. Put the logo in `src/assets/images/sponsors/` and reference it as `/assets/images/sponsors/<file>.webp`.
 
-Open `src/data/site-data.json` and look for the `"about"` key:
+### "Do-It-Yourself" (`"diy"`)
+List of `{ "title", "url", "image", "description" }`. Images go in `src/assets/images/diy/`.
 
-1. **Update Subheadline & Narrative:**
-   Modify `"about"."subheadline"` to reflect current lab descriptions.
-2. **Update Research Expertise:**
-   Add, reorder, or edit bullet points in `"about"."expertise"`:
-   ```json
-   "expertise": [
-     "Acoustic Levitation and Directional Audio",
-     "Virtual and Augmented Reality",
-     "Volumetric Displays",
-     "Sensors for HCI",
-     "Creativity & Fabrication Technologies"
-   ]
-   ```
-3. **Add or Edit Funding Sponsors / Grants:**
-   Add an entry inside `"about"."sponsors"`. Place the sponsor logo image in `public/assets/images/sponsors/`:
-   ```json
-   {
-     "title": "Project Name – Funding Agency & Grant ID – 2026-2029",
-     "logo": "/assets/images/sponsors/grant-logo.webp"
-   }
-   ```
+### Contact (`"contact"`)
+`email`, `addressLine1`, `addressLine2`, `mapsUrl`. Used in the footer and the Privacy page. The email is obfuscated automatically.
 
-### Updating "Do-It-Yourself" Guides
-
-Open `src/data/site-data.json` and look for the `"diy"` array:
+### Analytics (`"analytics"`)
+The site uses **no cookies and no Google Analytics**, so no cookie banner is needed. If you want visit statistics, create a free site at [goatcounter.com](https://www.goatcounter.com) (cookie-less, EU-hosted, GDPR-friendly) and put its code in `"goatcounter"`:
 
 ```json
-{
-  "title": "Instructables",
-  "url": "https://www.instructables.com/member/UpnaLab/",
-  "image": "/assets/images/diy/instructables.webp",
-  "description": "Check our detailed Instructables and guided tutorials to build your own cutting-edge devices."
-}
+"analytics": { "goatcounter": "upnalab" }
 ```
-You can update URLs, descriptions, or add new maker resources here.
+
+(for `https://upnalab.goatcounter.com`). Leave it `""` to disable. The Privacy page updates its text automatically.
+
+### Privacy & Legal Notice
+The text lives in `src/pages/privacy.astro`. Update the `lastUpdated` date at the top when you change it.
 
 ---
 
 ## 6. Testing Your Changes Locally
 
-Before publishing changes to the public website, you should test them on your computer.
-
-1. **Open your terminal** in the project folder (`upnalab.com`).
-2. **Run the local development server:**
+1. **Install once:** `npm ci` (needs Node 22).
+2. **Run the local server:**
    ```bash
    npm run dev
    ```
-   Open `http://localhost:4321` in your browser. As you edit files, the browser will update automatically.
-3. **Verify the static build (Optional but recommended):**
+   Open `http://localhost:4321`. The browser updates as you save files. Data errors are shown in the terminal and in the browser.
+3. **Full check before publishing (recommended):**
    ```bash
    npm run build
-   node scripts/verify-build.js
+   npm test
    ```
-   If all assertions pass with `0 failed`, your changes are clean and ready for production.
+   `npm run build` validates every JSON entry and image path; `npm test` runs sanity checks on the generated site. Both must finish without errors.
 
 ---
 
 ## 7. Publishing Changes to GitHub Pages
 
-The website is configured with a continuous deployment pipeline using **GitHub Actions**. As soon as you push your commit to the `main` branch, GitHub builds and publishes the website automatically.
+Pushing to the `main` branch triggers the workflow in `.github/workflows/deploy.yml`, which runs the checks, builds the site and publishes it.
 
-### Step-by-Step Deployment:
+1. `git status` to see what you changed.
+2. `git add .`
+3. `git commit -m "Add new research project: StreamFog"`
+4. `git push origin main`
+5. Watch the **Deploy to GitHub Pages** workflow under the *Actions* tab of the repository. When it turns green (usually 1–2 minutes) the change is live. If it turns red, open it: the log names the invalid entry or the failing check.
 
-1. **Check which files you modified:**
-   ```bash
-   git status
-   ```
-2. **Stage your modified files and new assets:**
-   ```bash
-   git add .
-   ```
-3. **Create a commit with a descriptive message:**
-   ```bash
-   git commit -m "Add new research project: StreamFog"
-   ```
-4. **Push the commit to GitHub:**
-   ```bash
-   git push origin main
-   ```
-5. **Watch the automatic build:**
-   - Go to your repository on GitHub: `https://github.com/<your-org-or-user>/upnalab.com/actions`
-   - You will see a running workflow named **Deploy to GitHub Pages**.
-   - Within 1–2 minutes, the workflow will turn green (completed), and your changes will be live on [upnalab.com](https://upnalab.com)!
+> Pull requests run the same checks without publishing, so you can review a contribution safely before merging.
 
 ---
 
@@ -300,7 +261,11 @@ The website is configured with a continuous deployment pipeline using **GitHub A
 
 | Issue | Cause | Solution |
 | :--- | :--- | :--- |
-| **`SyntaxError: Unexpected token` during build** | Invalid JSON syntax in `projects.json` or `people.json`. | Check for a missing or extra comma `,` between objects. You can validate your JSON at [jsonlint.com](https://jsonlint.com). |
-| **Project thumbnail or photo not loading** | Incorrect file path or missing image file. | Make sure the file exists inside `public/assets/...` and the path in JSON starts with `/assets/...`. |
-| **Changes not showing up in browser after deployment** | Browser cache. | Hard-refresh your browser using `Ctrl+F5` (Windows/Linux) or `Cmd+Shift+R` (macOS). |
-| **Project doesn't show in search or filter** | Tag spelling mismatch. | Check the `"tags"` array in `projects.json` matches the official categories (e.g., `"Ultrasound"`, `"Haptics"`, `"Displays"`). |
+| `SyntaxError: Unexpected token` during build | Invalid JSON syntax. | Look for a missing/extra comma. Validate at [jsonlint.com](https://jsonlint.com). |
+| `data does not match collection schema` | A field has a wrong value (e.g. `category: "active"`), is missing, or an image path is wrong. | The message names the entry and the field. Compare with the examples above. |
+| `Image file not found: src/assets/images/...` | The image is not where the JSON says. | Put the file in `src/assets/images/...`; the JSON path starts with `/assets/images/`. |
+| A person does not appear on the People page | `category` is not exactly `Active`, `Visitors` or `Alumni`. | Since the build validates this, it should now fail instead; fix the value. |
+| An author is not linked to a person | The spelling differs from `people.json` beyond accents. | Use the same first and last name as in `people.json`. |
+| Changes not visible after deployment | Browser cache. | Hard refresh: `Ctrl+F5` (Windows/Linux) or `Cmd+Shift+R` (macOS). |
+| Project not found by a tag filter | Tag not in the allowed list. | Use one of the tags listed in section 2, or add it to `PROJECT_TAGS` in `src/content.config.ts`. |
+| Changed the logo | — | Run `npm run og` to regenerate the social-media preview image `public/og-default.png`. |

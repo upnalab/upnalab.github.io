@@ -1,0 +1,59 @@
+---
+import { url } from '../utils/url';
+import type { Person } from '../utils/data';
+import Icon from './Icon.astro';
+import ObfuscatedEmail from './ObfuscatedEmail.astro';
+
+/**
+ * Profile links of a person, as icon buttons (card) or labelled pills (modal).
+ */
+interface Props {
+  person: Person;
+  variant?: 'icons' | 'pills';
+  class?: string;
+}
+
+const { person, variant = 'icons', class: className = '' } = Astro.props;
+const { links } = person;
+
+const iconBtn = 'p-1.5 rounded-lg bg-slate-50 text-slate-500 transition-colors border border-slate-200/60';
+const pill = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white text-slate-700 text-xs font-medium border border-slate-200/80 shadow-2xs transition-colors';
+
+type Entry = { href: string; title: string; label: string; hover: string; image?: string; icon?: 'linkedin' | 'github' | 'globe' };
+const entries: Entry[] = [];
+if (links.scholar) entries.push({ href: links.scholar, title: 'Google Scholar Profile', label: 'Scholar', hover: 'hover:bg-brand-50 hover:text-brand-700 hover:border-brand-300', image: '/assets/icons/google_scholar_icon.svg' });
+if (links.orcid) entries.push({ href: links.orcid, title: 'ORCID Record', label: 'ORCID', hover: 'hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300', image: '/assets/icons/ORCID_iD.svg' });
+if (links.upna && links.upna.startsWith('http')) entries.push({ href: links.upna, title: 'Institutional Academic Profile', label: 'UPNA Profile', hover: 'hover:bg-red-50 hover:text-red-700 hover:border-red-300', image: '/assets/icons/profile.svg' });
+if (links.linkedin) entries.push({ href: links.linkedin, title: 'LinkedIn Profile', label: 'LinkedIn', hover: 'hover:bg-sky-50 hover:text-sky-700 hover:border-sky-300', icon: 'linkedin' });
+if (links.github) entries.push({ href: links.github, title: 'GitHub Profile', label: 'GitHub', hover: 'hover:bg-slate-100 hover:text-slate-900 hover:border-slate-400', icon: 'github' });
+if (links.website) entries.push({ href: links.website, title: 'Personal Website', label: 'Website', hover: 'hover:bg-brand-50 hover:text-brand-700 hover:border-brand-300', icon: 'globe' });
+
+const isPills = variant === 'pills';
+const base = isPills ? pill : iconBtn;
+const iconSize = isPills ? 'w-3.5 h-3.5' : 'w-4 h-4';
+---
+
+<div class={`flex items-center flex-wrap gap-2 ${className}`}>
+  {entries.map(e => (
+    <a href={e.href} target="_blank" rel="noopener noreferrer" title={e.title} aria-label={isPills ? undefined : e.title} class={`${base} ${e.hover}`}>
+      {e.image ? (
+        <img src={url(e.image)} alt="" width="16" height="16" class={iconSize} />
+      ) : (
+        <Icon name={e.icon!} class={iconSize} />
+      )}
+      {isPills && <span>{e.label}</span>}
+    </a>
+  ))}
+
+  {links.email && (
+    <ObfuscatedEmail
+      email={links.email}
+      title={`Email ${person.name}`}
+      aria-label={`Email ${person.name}`}
+      class={`${base} hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300`}
+    >
+      <Icon name="mail" class={`${iconSize} ${isPills ? 'text-amber-600' : ''}`} />
+      {isPills && <span>Email</span>}
+    </ObfuscatedEmail>
+  )}
+</div>

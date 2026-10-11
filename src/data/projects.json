@@ -526,9 +526,9 @@
     ]
   },
   {
-    "id": "explouring-mountains-with-tangibles-and-vr",
-    "slug": "explouring-mountains-with-tangibles-and-vr",
-    "title": "Explouring Mountains with Tangibles and VR",
+    "id": "exploring-mountains-with-tangibles-and-vr",
+    "slug": "exploring-mountains-with-tangibles-and-vr",
+    "title": "Exploring Mountains with Tangibles and VR",
     "date": "2020-11-11",
     "year": 2020,
     "category": "Research Project",
@@ -536,8 +536,8 @@
       "Fabrication",
       "Virtual Reality"
     ],
-    "thumbnail": "/assets/images/projects/explouring-mountains-with-tangibles-and-vr.webp",
-    "videoPreview": "/assets/videos/projects/explouring-mountains-with-tangibles-and-vr.mp4",
+    "thumbnail": "/assets/images/projects/exploring-mountains-with-tangibles-and-vr.webp",
+    "videoPreview": "/assets/videos/projects/exploring-mountains-with-tangibles-and-vr.mp4",
     "paperVideo": "https://www.youtube.com/watch?v=s2szB96QtNM",
     "abstract": "We presented the following demo in congreso Interacción’19 in San Sebastian. “Immersive virtual reality environments allow interaction through generic devices with specific characteristics of such environments: three-dimensional interaction devices or wearable devices without cables. But the sensation of immersion is often diminished by the minimal feedback obtained from the virtual environment, for which haptic devices of different characteristics have been developed. However, these devices do not produce the sensation of touch of a physical object. In our project we create physical objects with tangible surfaces that are interactive in a virtual reality environment. We have implemented two examples applications: in the first one we have placed in physical space real objects that correspond to virtual objects in a similar position in the virtual space, the user can move through the physical space which corresponds to the virtual space and can touch the physical objects that also exist in the virtual space. In the second we have created a physical reproduction of a mountain by 3D printing, through the interaction with capacitive sensors in the physical object we can navigate through a virtual space in which the same mountain is visualized in 3D.”",
     "publicationUrl": "https://doi.org/10.1145/3380867.3426204",
@@ -579,17 +579,17 @@
     ]
   },
   {
-    "id": "sliceview-content-for-a-multiview-afrodable-display",
-    "slug": "sliceview-content-for-a-multiview-afrodable-display",
-    "title": "SliceView: content for a multiview afordable display",
+    "id": "sliceview-content-for-a-multiview-affordable-display",
+    "slug": "sliceview-content-for-a-multiview-affordable-display",
+    "title": "SliceView: content for a multiview affordable display",
     "date": "2020-10-11",
     "year": 2020,
     "category": "Research Project",
     "tags": [
       "Displays"
     ],
-    "thumbnail": "/assets/images/projects/sliceview-content-for-a-multiview-afrodable-display.webp",
-    "videoPreview": "/assets/videos/projects/sliceview-content-for-a-multiview-afrodable-display.mp4",
+    "thumbnail": "/assets/images/projects/sliceview-content-for-a-multiview-affordable-display.webp",
+    "videoPreview": "/assets/videos/projects/sliceview-content-for-a-multiview-affordable-display.mp4",
     "paperVideo": "https://www.youtube.com/watch?v=LZlDZgJkHtk",
     "abstract": "We present SliceView, a simple and inexpensive multi-view display made with multiple parallel translucent sheets that sit on top of a regular monitor; each sheet reflects different 2D images that are perceived cumulatively. A technical study is performed on the reflected and transmitted light for sheets of different thicknesses. A user study compares SliceView with a commercial light-field display (LookingGlass) regarding the perception of information at multiple depths. More importantly, we present automatic adaptations of existing content to SliceView: 2D layered graphics such as retro-games or painting tools, movies and subtitles, and regular 3D scenes with multiple clipping z-planes. We show that it is possible to create an inexpensive multi-view display and automatically adapt content for it; moreover, the depth perception on some tasks is superior to the one obtained in a commercial light-field display. We hope that this work stimulates more research and applications with multi-view displays.",
     "publicationUrl": "https://doi.org/10.3390/app10207357",

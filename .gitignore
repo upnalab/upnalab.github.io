@@ -1,14 +1,23 @@
-node_modules/
+# Build output (GitHub Actions builds and publishes it)
 dist/
-.tmp/
-.antigravity/
+
+# Dependencies
+node_modules/
+
+# Astro generated types and cache
 .astro/
+
+# Scratch output of the old WordPress migration
+.tmp/
+export.xml
+
+# Environment and editor files
 .env
 .env.*
-*.log
-*.xml
-Blueprint de Migración UPNALAB.md
 .DS_Store
 Thumbs.db
-.vscode/
-.idea/
+*.log
+
+*.ps1
+
+CLAUDE.md

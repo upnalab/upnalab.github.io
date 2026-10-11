@@ -1,5 +1,7 @@
 ---
-import ProjectCard, { type Project } from './ProjectCard.astro';
+import ProjectCard from './ProjectCard.astro';
+import Icon from './Icon.astro';
+import type { Project } from '../utils/data';
 
 interface Props {
   projects: Project[];
@@ -18,7 +20,7 @@ const allTags = Array.from(
   new Set(
     projects.flatMap(p => p.tags)
   )
-).filter(t => t !== 'Research Project' && t !== 'Student Project').sort();
+).filter((t): t is Exclude<typeof t, 'Student Project' | 'Student Work'> => t !== 'Student Project' && t !== 'Student Work').sort();
 ---
 
 <section class="pt-2 sm:pt-3 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -40,13 +42,12 @@ const allTags = Array.from(
   <div class="mb-8 space-y-2.5">
     <div class="relative max-w-md mx-auto">
       <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
+        <Icon name="search" class="w-4 h-4" />
       </div>
       <input
         type="search"
         id="project-search-input"
+        aria-label="Search projects"
         placeholder="Search projects..."
         class="w-full pl-9 pr-8 py-1.5 sm:py-2 rounded-lg border border-slate-200 bg-white text-slate-900 placeholder-slate-400 text-xs sm:text-sm shadow-2xs focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all"
         autocomplete="off"
@@ -57,9 +58,7 @@ const allTags = Array.from(
         class="hidden absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
         aria-label="Clear search"
       >
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <Icon name="close" class="w-3.5 h-3.5" />
       </button>
     </div>
 
@@ -95,9 +94,7 @@ const allTags = Array.from(
 
   <div id="no-projects-found" class="hidden text-center py-16">
     <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-100 text-slate-400 mb-3">
-      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
+      <Icon name="sad" class="w-6 h-6" />
     </div>
     <h3 class="text-base font-semibold text-slate-900">No matching projects</h3>
     <p class="text-sm text-slate-500 mt-1">Try adjusting your search keywords or removing active filters.</p>

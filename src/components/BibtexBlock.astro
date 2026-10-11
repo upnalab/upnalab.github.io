@@ -1,19 +1,26 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   bibtex: string;
-  id?: string;
+  /** Compact variant for dense lists */
+  compact?: boolean;
 }
 
-const { bibtex, id = "bibtex-block" } = Astro.props;
+const { bibtex, compact = false } = Astro.props;
 ---
 
 <div class="relative group rounded-xl bg-slate-900 text-slate-100 overflow-hidden border border-slate-800 shadow-md">
   <div class="flex items-center justify-between px-4 py-2.5 bg-slate-800/80 border-b border-slate-700/60">
     <div class="flex items-center gap-2">
-      <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-      <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
-      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
-      <span class="ml-2 text-xs font-mono font-medium text-slate-400">BibTeX Citation</span>
+      {!compact && (
+        <>
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+        </>
+      )}
+      <span class={`${compact ? '' : 'ml-2'} text-xs font-mono font-medium text-slate-400`}>BibTeX</span>
     </div>
 
     <button
@@ -22,17 +29,13 @@ const { bibtex, id = "bibtex-block" } = Astro.props;
       data-bibtex={bibtex}
       aria-label="Copy BibTeX citation to clipboard"
     >
-      <svg class="copy-icon w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-      </svg>
-      <svg class="check-icon w-3.5 h-3.5 hidden text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-      </svg>
+      <span class="copy-icon"><Icon name="copy" class="w-3.5 h-3.5" /></span>
+      <span class="check-icon hidden text-emerald-400"><Icon name="check" class="w-3.5 h-3.5" /></span>
       <span class="btn-text">Copy</span>
     </button>
   </div>
 
-  <pre class="p-4 overflow-x-auto text-xs sm:text-sm font-mono leading-relaxed text-slate-200 selection:bg-brand-600 selection:text-white"><code>{bibtex}</code></pre>
+  <pre class={`p-4 overflow-x-auto font-mono leading-relaxed text-slate-200 selection:bg-brand-600 selection:text-white ${compact ? 'text-xs' : 'text-xs sm:text-sm'}`}><code>{bibtex}</code></pre>
 </div>
 
 <script>
@@ -49,19 +52,12 @@ const { bibtex, id = "bibtex-block" } = Astro.props;
       const textarea = document.createElement('textarea');
       textarea.value = text;
       textarea.style.position = 'fixed';
-      textarea.style.top = '0';
-      textarea.style.left = '0';
-      textarea.style.width = '1px';
-      textarea.style.height = '1px';
-      textarea.style.padding = '0';
-      textarea.style.border = 'none';
-      textarea.style.outline = 'none';
-      textarea.style.boxShadow = 'none';
-      textarea.style.background = 'transparent';
+      textarea.style.opacity = '0';
       document.body.appendChild(textarea);
       textarea.focus();
       textarea.select();
-      const success = document.execCommand('copy');
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      const success = (document as any).execCommand('copy');
       document.body.removeChild(textarea);
       return success;
     } catch {
@@ -70,8 +66,9 @@ const { bibtex, id = "bibtex-block" } = Astro.props;
   }
 
   function initBibtexCopyButtons() {
-    const buttons = document.querySelectorAll('.copy-bibtex-btn');
-    buttons.forEach(btn => {
+    document.querySelectorAll('.copy-bibtex-btn').forEach(btn => {
+      if ((btn as HTMLElement).dataset.ready) return;
+      (btn as HTMLElement).dataset.ready = 'true';
       btn.addEventListener('click', async () => {
         const text = btn.getAttribute('data-bibtex') || '';
         const copyIcon = btn.querySelector('.copy-icon');
